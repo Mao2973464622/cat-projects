@@ -1,0 +1,38 @@
+<svg width="64" height="64" viewBox="0 0 400 400" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="techGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#00D4FF;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#0A192F;stop-opacity:1" />
+    </linearGradient>
+    <filter id="glow">
+      <feGaussianBlur stdDeviation="3" result="coloredBlur"/>
+      <feMerge>
+        <feMergeNode in="coloredBlur"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+  </defs>
+  
+  <!-- 背景圆 -->
+  <circle cx="200" cy="200" r="190" fill="url(#techGradient)" opacity="0.1"/>
+  
+  <!-- 神鹰简化版 -->
+  <g transform="translate(200, 200)">
+    <!-- 双翼 -->
+    <path d="M -70 15 L -100 -25 L -80 -40 L -50 -15 Z" 
+          fill="#667eea" stroke="#00D4FF" stroke-width="3" filter="url(#glow)"/>
+    <path d="M 70 15 L 100 -25 L 80 -40 L 50 -15 Z" 
+          fill="#667eea" stroke="#00D4FF" stroke-width="3" filter="url(#glow)"/>
+    
+    <!-- 身体 -->
+    <path d="M 0 -50 L 25 -15 L 0 35 L -25 -15 Z" 
+          fill="url(#techGradient)" stroke="#BD34FE" stroke-width="3" filter="url(#glow)"/>
+    
+    <!-- 头部 -->
+    <circle cx="0" cy="-60" r="12" fill="#00D4FF" filter="url(#glow)"/>
+    
+    <!-- 皇冠 -->
+    <path d="M -8 -78 L -8 -88 L 0 -82 L 8 -88 L 8 -78" 
+          fill="none" stroke="#C9A959" stroke-width="4" filter="url(#glow)"/>
+  </g>
+</svg>
