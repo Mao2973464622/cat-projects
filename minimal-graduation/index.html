@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>𝓒𝓲𝓪𝓵𝓵𝓸～(∠・ω< )⌒☆ 猫猫の前端毕设 - 商品收藏小站</title>
+  <link rel="stylesheet" href="/Minimal/common.css">
+  <link rel="stylesheet" href="/Minimal/goods_card.css">
+</head>
+<body>
+
+<!-- 导航栏 -->
+<nav class="navbar">
+  <div class="nav-container">
+    <h1 class="logo">𝓒𝓲𝓪𝓵𝓵𝓸～(∠・ω< )⌒☆ 猫猫の前端毕设</h1>
+    <div class="nav-links">
+      <a href="index.html">首页</a>
+      <a href="list.html">商品列表</a>
+      <a href="add.html">新增商品</a>
+      <a href="developer.html">开发者说明</a>
+    </div>
+  </div>
+</nav>
+
+<!-- banner -->
+<div class="banner">
+  <div class="banner-content">
+    <h2>自用好物收藏整理</h2>
+    <p>涵盖数码、服饰、日用、零食，纯前端动态管理</p>
+    <a href="list.html" class="btn">查看全部商品</a>
+  </div>
+</div>
+
+<!-- 推荐商品 -->
+<div class="container">
+  <h3 class="title">✨ 推荐好物</h3>
+  <div class="goods-list" id="recommendList"></div>
+</div>
+
+<footer>
+  <p>𝓒𝓲𝓪𝓵𝓵𝓸～(∠・ω< )⌒☆ 猫猫の前端毕设 © 2026 | 湖南九嶷职业技术学院 毕设作品 | 前端展示</p>
+</footer>
+
+<script src="/Minimal/common.js"></script>
+<script src="/Minimal/crud.js"></script>
+<script>
+window.onload = function() {
+  fetch('./goods.json')
+    .then(res => res.json())
+    .then(data => {
+      let listBox = document.getElementById('recommendList');
+      listBox.innerHTML = '';
+      data.forEach(item => {
+        listBox.innerHTML += `
+          <div class="goods-card">
+            <img src="${item.img_url}" alt="${item.name}">
+            <h5>${item.name}</h5>
+            <p class="price">¥${item.price}</p>
+            <p>${item.experience.substring(0, 20)}...</p>
+            <p class="shortage">❌ 小缺点：${item.shortage.substring(0, 20)}...</p>
+            <a href="detail.html?id=${item.id}" class="btn btn-sm">看详情</a>
+          </div>
+        `;
+      });
+    });
+}
+</script>
+
+</body>
+
+</html>
+
