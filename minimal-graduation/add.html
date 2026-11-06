@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>新增商品 - 𝓒𝓲𝓪𝓵𝓵𝓸～(∠・ω< )⌒☆ 猫猫の前端毕设</title>
+  <link rel="stylesheet" href="/Minimal/common.css">
+  <link rel="stylesheet" href="/Minimal/form.css">
+</head>
+<body>
+  <!-- 导航栏 -->
+  <nav class="navbar">
+    <div class="nav-container">
+      <h1 class="logo">𝓒𝓲𝓪𝓵𝓵𝓸～(∠・ω< )⌒☆ 猫猫の前端毕设</h1>
+      <div class="nav-links">
+        <a href="index.html">首页</a>
+        <a href="list.html">商品列表</a>
+        <a href="add.html">新增商品</a>
+        <a href="developer.html">开发者说明</a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- 新增表单 -->
+  <div class="container form-page">
+    <h3 class="title">➕ 新增商品</h3>
+    <form id="addForm" class="goods-form">
+      <div class="form-group">
+        <label>商品名称 *</label>
+        <input type="text" name="name" placeholder="例如：红米耳机" required>
+      </div>
+      <div class="form-group">
+        <label>商品分类 *</label>
+        <select name="category" required>
+          <option value="">请选择分类</option>
+          <option value="数码类">数码类</option>
+          <option value="服饰类">服饰类</option>
+          <option value="日用类">日用类</option>
+          <option value="零食类">零食类</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label>商品价格（元）*</label>
+        <input type="text" name="price" id="addPrice" placeholder="例如：99.9" required>
+      </div>
+      <div class="form-group">
+        <label>图片链接（选填）</label>
+        <input type="text" name="img_url" placeholder="填写在线图片链接，如https://xxx.jpg">
+      </div>
+      <div class="form-group">
+        <label>购买链接（选填）</label>
+        <input type="text" name="buy_url" placeholder="填写商品购买链接">
+      </div>
+      <div class="form-group">
+        <label>自用体验 *</label>
+        <textarea name="experience" rows="3" placeholder="说说使用感受～" required></textarea>
+      </div>
+      <div class="form-group">
+        <label>小缺点 *</label>
+        <textarea name="shortage" rows="2" placeholder="说说不满意的地方～" required></textarea>
+      </div>
+      <div class="form-group">
+        <label>评分（1-5星）*</label>
+        <select name="score" required>
+          <option value="1">1星</option>
+          <option value="2">2星</option>
+          <option value="3">3星</option>
+          <option value="4">4星</option>
+          <option value="5">5星</option>
+        </select>
+      </div>
+      <div class="form-actions">
+        <button type="submit" class="btn">提交新增</button>
+        <button type="reset" class="btn btn-secondary">重置表单</button>
+        <a href="list.html" class="btn btn-danger">返回列表</a>
+      </div>
+    </form>
+  </div>
+
+  <!-- 底部 -->
+  <footer>
+    <p>𝓒𝓲𝓪𝓵𝓵𝓸～(∠・ω< )⌒☆ 猫猫の前端毕设 © 2026 | 湖南九嶷职业技术学院 毕设作品 | 前端展示</p>
+  </footer>
+
+  <script src="/Minimal/common.js"></script>
+  <script src="/Minimal/crud.js"></script>
+  <script>
+    // 价格输入验证
+    document.getElementById('addPrice').addEventListener('input', priceInputFilter);
+
+    // 表单提交
+    document.getElementById('addForm').addEventListener('submit', function(e) {
+      e.preventDefault();
+      let formData = {
+        name: this.name.value,
+        category: this.category.value,
+        price: this.price.value,
+        img_url: this.img_url.value,
+        buy_url: this.buy_url.value,
+        experience: this.experience.value,
+        shortage: this.shortage.value,
+        score: this.score.value
+      };
+      addGoods(formData);
+    });
+  </script>
+</body>
+</html>
