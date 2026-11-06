@@ -1,0 +1,409 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>个人简介 - 猫猫</title>
+<link rel="icon" href="favicon.jpg" type="image/jpeg">
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+<style>
+  /* 整体：干净、柔和、浅色清爽风格 */
+  body {
+    background: #f8f9ff;
+    color: #2c3e50;
+    font-family: "Microsoft YaHei", sans-serif;
+    line-height: 1.7;
+    overflow-y: scroll;
+    padding-top: 70px;
+  }
+
+  /* 导航栏：柔和蓝紫，干净不刺眼 */
+  .navbar {
+    background: #ffffff;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+    border-bottom: 2px solid #a8bfff;
+  }
+  .navbar-brand {
+    color: #6366f1;
+    font-weight: bold;
+  }
+  .nav-link {
+    color: #4a5568 !important;
+  }
+  .nav-link:hover {
+    color: #6366f1 !important;
+  }
+  .nav-link.active {
+    color: #6366f1 !important;
+    font-weight: 600;
+  }
+
+  /* 板块：统一间距，阅读舒服 */
+  .section {
+    padding: 60px 0;
+  }
+  .title {
+    color: #4f46e5;
+    font-weight: bold;
+    margin-bottom: 30px;
+    text-align: center;
+  }
+
+  /* 卡片：纯白、柔和、干净、文字100%清晰 */
+  .card {
+    border: none;
+    border-radius: 16px;
+    background: #ffffff;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.04);
+    padding: 24px;
+    margin-bottom: 24px;
+  }
+  .card h5 {
+    color: #3b4a61;
+    margin-bottom: 16px;
+    font-weight: 600;
+  }
+  .card p, .card li {
+    color: #2c3e50 !important;
+    font-size: 15px;
+  }
+
+  /* 进度条：显示百分比，柔和蓝 */
+  .progress {
+    height: 10px;
+    border-radius: 5px;
+    background: #eaefff;
+    margin-bottom: 18px;
+    position: relative;
+  }
+  .progress-bar {
+    background: #818cf8;
+    border-radius: 5px;
+  }
+  .progress-text {
+    position: absolute;
+    right: 8px;
+    top: -20px;
+    font-size: 12px;
+    color: #6366f1;
+    font-weight: 500;
+  }
+
+  /* 按钮：柔和主色 */
+  .btn-primary {
+    background: #818cf8;
+    border: none;
+    border-radius: 8px;
+  }
+  .btn-primary:hover {
+    background: #6366f1;
+  }
+
+  /* 表单：干净 */
+  .form-control {
+    border-radius: 8px;
+    border: 1px solid #e2e8f0;
+    background: #ffffff;
+  }
+  .form-control:focus {
+    border-color: #a8bfff;
+    box-shadow: 0 0 0 2px rgba(131, 148, 248, 0.2);
+    color: #2c3e50;
+  }
+
+  /* 底部 */
+  footer {
+    background: #ffffff;
+    padding: 24px 0;
+    text-align: center;
+    border-top: 1px solid #e2e8f0;
+    margin-top: 40px;
+    color: #4a5568;
+  }
+
+  /* 超链接样式优化 */
+  .skill-link {
+    color: #6366f1;
+    text-decoration: none;
+    font-weight: 500;
+  }
+  .skill-link:hover {
+    color: #4f46e5;
+    text-decoration: underline;
+  }
+
+  /* 首页欢迎语样式 */
+  .welcome-text {
+    font-size: 1.1rem;
+    color: #4a5568;
+    margin-bottom: 30px;
+    line-height: 1.8;
+  }
+</style>
+</head>
+
+<body>
+
+<!-- 导航 -->
+<nav class="navbar navbar-expand-lg fixed-top">
+  <div class="container">
+    <a class="navbar-brand" href="#home">猫猫的小窝</a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#nav">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="nav">
+      <ul class="navbar-nav ms-auto">
+        <li class="nav-item"><a class="nav-link active" href="#home">首页</a></li>
+        <li class="nav-item"><a class="nav-link" href="#about">个人简介</a></li>
+        <li class="nav-item"><a class="nav-link" href="#hobby">兴趣爱好</a></li>
+        <li class="nav-item"><a class="nav-link" href="#skill">专业技能</a></li>
+        <li class="nav-item"><a class="nav-link" href="#contact">联系我</a></li>
+      </ul>
+    </div>
+  </div>
+</nav>
+
+<!-- 首页（补充Galgame/SLG关键词） -->
+<section id="home" class="section">
+  <div class="container text-center">
+    <h2 class="title">欢迎来到我的个人主页</h2>
+    <p class="welcome-text">这里是猫猫的二次元小窝｜喜欢数码、Galgame、SLG策略游戏、小说与动漫<br>慢慢来，会变好 ✨</p>
+    <a href="#about" class="btn btn-primary px-4">查看我的介绍</a>
+  </div>
+</section>
+
+<!-- 个人简介（头像已改为avatar.jpg） -->
+<section id="about" class="section">
+  <div class="container">
+    <h2 class="title">个人简介</h2>
+    <div class="card">
+      <div class="row">
+        <div class="col-md-4 text-center mb-4">
+          <!-- 头像替换为同文件夹的avatar.jpg -->
+          <img src="avatar.jpg" class="rounded-circle" width="180" alt="猫猫的头像">
+        </div>
+        <div class="col-md-8">
+          <p><strong>昵称：</strong>猫猫</p>
+          <p><strong>专业：</strong>计算机应用技术</p>
+          <p><strong>性格：</strong>慢热温和、有耐心、做事认真</p>
+          <p><strong>座右铭：</strong>慢慢来，会变好</p>
+          <p><strong>日常：</strong>上课学习 → 研究数码设备 → 看小说/动漫 → 打会儿游戏（Galgame/SLG/联机） → 运动放松</p>
+        </div>
+      </div>
+      <div class="mt-3">
+        <h5>自我描述</h5>
+        <p>一名计算机应用技术专业的大二学生，性格偏安静但对待喜欢的事物会很专注。平时喜欢研究各类数码产品，尤其热衷于折腾小米/红米系列的设备，闲暇时会看小说、追动漫，也会玩Galgame、SLG策略游戏，和朋友组队打联机游戏，偶尔打羽毛球。学习上踏实认真，喜欢把学到的计算机知识应用到日常的数码折腾中，希望能在技术领域慢慢积累，做出自己喜欢的小项目。</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 兴趣爱好（包含Galgame和SLG卡片） -->
+<section id="hobby" class="section">
+  <div class="container">
+    <h2 class="title">兴趣爱好</h2>
+    <div class="row g-4">
+      <div class="col-md-6 col-lg-4">
+        <div class="card h-100">
+          <h5>🎬 漫画/动漫</h5>
+          <p>最喜欢《诛仙》动画，独特的画面风格和饱满的人物塑造让人沉迷，反复刷了很多遍，很喜欢里面的剧情和人物设定。</p>
+        </div>
+      </div>
+      <div class="col-md-6 col-lg-4">
+        <div class="card h-100">
+          <h5>📖 小说</h5>
+          <p>偏爱在番茄小说看各类网文，习惯了平台的阅读界面和内容风格，其他小说平台提不起阅读的动力。</p>
+        </div>
+      </div>
+      <div class="col-md-6 col-lg-4">
+        <div class="card h-100">
+          <h5>💻 数码折腾</h5>
+          <p>初步了解PC、安卓手机、智能电视相关知识，尤其喜欢折腾小米/红米系列设备，研究刷机、优化、个性化设置等。</p>
+        </div>
+      </div>
+      <div class="col-md-6 col-lg-4">
+        <div class="card h-100">
+          <h5>🎮 联机游戏</h5>
+          <p>常玩迷你枪战精英和三角洲行动，喜欢和朋友组队开黑，主打休闲娱乐，享受游戏过程中的互动和放松。</p>
+        </div>
+      </div>
+      <div class="col-md-6 col-lg-4">
+        <div class="card h-100">
+          <h5>🎮 Galgame</h5>
+          <p>喜欢体验各类Galgame，偏爱剧情向、角色塑造饱满的作品，享受沉浸式的故事体验和细腻的情感表达。</p>
+        </div>
+      </div>
+      <div class="col-md-6 col-lg-4">
+        <div class="card h-100">
+          <h5>🎮 SLG 策略游戏</h5>
+          <p>热衷于SLG类策略游戏，喜欢研究游戏内的资源运营、阵容搭配和战术布局，享受一步步经营和策略取胜的成就感。</p>
+        </div>
+      </div>
+      <div class="col-md-6 col-lg-4">
+        <div class="card h-100">
+          <h5>🏸 运动</h5>
+          <p>初学羽毛球，每周会和同学一起打几次，既能锻炼身体，也能放松心情，慢慢在练习基础动作和技巧。</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 专业技能（进度条显示百分比） -->
+<section id="skill" class="section">
+  <div class="container">
+    <h2 class="title">专业技能</h2>
+    <div class="card">
+      <h5>💻 编程基础</h5>
+      <p><a href="https://developer.mozilla.org/zh-CN/docs/Web/HTML" target="_blank" class="skill-link">HTML5 / CSS3</a></p>
+      <div class="progress">
+        <div class="progress-bar" style="width:85%"></div>
+        <span class="progress-text">85%</span>
+      </div>
+      
+      <p><a href="https://developer.mozilla.org/zh-CN/docs/Web/JavaScript" target="_blank" class="skill-link">JavaScript</a></p>
+      <div class="progress">
+        <div class="progress-bar" style="width:70%"></div>
+        <span class="progress-text">70%</span>
+      </div>
+      
+      <p><a href="https://docs.python.org/zh-cn/3/tutorial/index.html" target="_blank" class="skill-link">Python 基础</a></p>
+      <div class="progress">
+        <div class="progress-bar" style="width:60%"></div>
+        <span class="progress-text">60%</span>
+      </div>
+
+      <h5 class="mt-4">🛠️ 工具</h5>
+      <p><a href="https://code.visualstudio.com/docs" target="_blank" class="skill-link">VS Code</a></p>
+      <div class="progress">
+        <div class="progress-bar" style="width:90%"></div>
+        <span class="progress-text">90%</span>
+      </div>
+      
+      <p><a href="https://getbootstrap.com/" target="_blank" class="skill-link">Bootstrap</a></p>
+      <div class="progress">
+        <div class="progress-bar" style="width:80%"></div>
+        <span class="progress-text">80%</span>
+      </div>
+
+      <h5 class="mt-4">🎮 其他技能</h5>
+      <ul>
+        <li>电脑基础装机与系统优化</li>
+        <li>安卓设备基础刷机/个性化设置</li>
+        <li>简单的视频剪辑与图片处理</li>
+        <li>数码产品基础故障排查</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- 联系我（表单非空验证） -->
+<section id="contact" class="section">
+  <div class="container">
+    <h2 class="title">联系我</h2>
+    <div class="row g-4">
+      <div class="col-md-6">
+        <div class="card h-100">
+          <h5>📱 联系方式</h5>
+          <p><strong>QQ：</strong>2973464622</p>
+          <p><strong>邮箱：</strong>2973464622@qq.com</p>
+          <p class="mt-3">加好友请备注：来源+目的（如：交流数码/游戏）</p>
+        </div>
+      </div>
+      <div class="col-md-6">
+        <div class="card h-100">
+          <h5>✍️ 留言</h5>
+          <form id="messageForm">
+            <div class="mb-3">
+              <label class="form-label">昵称</label>
+              <input type="text" class="form-control" id="name" placeholder="你的昵称">
+            </div>
+            <div class="mb-3">
+              <label class="form-label">邮箱</label>
+              <input type="email" class="form-control" id="email" placeholder="你的邮箱">
+            </div>
+            <div class="mb-3">
+              <label class="form-label">留言内容</label>
+              <textarea class="form-control" id="message" rows="4" placeholder="想交流的数码、游戏（Galgame/SLG）、学习相关内容..."></textarea>
+            </div>
+            <button type="button" class="btn btn-primary w-100" onclick="submitForm()">提交</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 底部（添加温柔文案） -->
+<footer>
+  <div class="container">
+    <p>生活慢慢过，喜欢的事慢慢做 ✨</p>
+    <p class="mb-0 mt-2">© 2026 猫猫的个人主页 - 毕业设计作品</p>
+  </div>
+</footer>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+<script>
+  // 平滑滚动
+  document.querySelectorAll('a[href^="#"]').forEach(a => {
+    a.addEventListener('click', e => {
+      e.preventDefault();
+      document.querySelector(this.getAttribute('href')).scrollIntoView({ behavior: 'smooth' });
+      // 移动端关闭导航菜单
+      const navbarCollapse = document.getElementById('nav');
+      if (navbarCollapse.classList.contains('show')) {
+        new bootstrap.Collapse(navbarCollapse).hide();
+      }
+    });
+  });
+
+  // 滚动时高亮当前导航
+  window.addEventListener('scroll', function() {
+    const sections = document.querySelectorAll('.section');
+    const navLinks = document.querySelectorAll('.nav-link');
+    
+    let currentSection = '';
+    sections.forEach(section => {
+      const sectionTop = section.offsetTop;
+      const sectionHeight = section.clientHeight;
+      if (window.scrollY >= (sectionTop - 100)) {
+        currentSection = section.getAttribute('id');
+      }
+    });
+
+    navLinks.forEach(link => {
+      link.classList.remove('active');
+      if (link.getAttribute('href') === '#' + currentSection) {
+        link.classList.add('active');
+      }
+    });
+  });
+
+  // 留言表单非空验证
+  function submitForm() {
+    const name = document.getElementById('name').value.trim();
+    const email = document.getElementById('email').value.trim();
+    const message = document.getElementById('message').value.trim();
+
+    if (!name) {
+      alert('请填写你的昵称～');
+      return;
+    }
+    if (!email) {
+      alert('请填写你的邮箱，方便我回复你～');
+      return;
+    }
+    if (!message) {
+      alert('请填写留言内容哦～');
+      return;
+    }
+
+    // 验证通过提示
+    alert('留言成功！我会尽快回复你～');
+    // 清空表单
+    document.getElementById('messageForm').reset();
+  }
+</script>
+</body>
+</html>
+
