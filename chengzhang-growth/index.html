@@ -1,0 +1,629 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="猫猫の成长记录 - 时光不语，成长有迹">
+    <meta name="author" content="猫猫">
+    <title>猫猫の成长记录 | Columbia Growth</title>
+    <link rel="icon" type="image/svg+xml" href="favicon.svg">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Microsoft YaHei', 'PingFang SC', 'Noto Sans SC', sans-serif;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+            transition: background-color 0.5s, color 0.5s;
+        }
+
+        /* 主题变量 */
+        :root {
+            --tech-cyan: #00D4FF;
+            --deep-blue: #0A192F;
+            --concrete-gray: #8B95A5;
+            --metal-purple: #667eea;
+            --warm-orange: #FF8C42;
+            --peach-pink: #FFB6C1;
+            --bamboo-green: #7FB069;
+            --bronze-gold: #C9A959;
+            --neon-purple: #BD34FE;
+        }
+
+        /* 科技未来风（默认） */
+        body.theme-tech {
+            --bg-primary: #0A192F;
+            --bg-surface: #112240;
+            --text-primary: #E6F7FF;
+            --text-secondary: #8B95A5;
+            --accent: #00D4FF;
+        }
+
+        /* 温馨治愈风 */
+        body.theme-warm {
+            --bg-primary: #FFF5F0;
+            --bg-surface: #FFFFFF;
+            --text-primary: #4A4A4A;
+            --text-secondary: #9CA3AF;
+            --accent: #FF8C42;
+        }
+
+        /* 简约高级风 */
+        body.theme-simple {
+            --bg-primary: #FFFFFF;
+            --bg-surface: #F5F5F5;
+            --text-primary: #000000;
+            --text-secondary: #6B7280;
+            --accent: #000000;
+        }
+
+        /* 活泼青春风 */
+        body.theme-active {
+            --bg-primary: #F0FFF4;
+            --bg-surface: #FFFFFF;
+            --text-primary: #2D3748;
+            --text-secondary: #718096;
+            --accent: #7FB069;
+        }
+
+        body {
+            background: var(--bg-primary);
+            color: var(--text-primary);
+            min-height: 100vh;
+        }
+
+        /* 导航栏 */
+        .navbar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 50;
+            background: rgba(17, 34, 64, 0.87);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid rgba(0, 212, 255, 0.2);
+            transition: all 0.3s;
+        }
+
+        .navbar-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 1rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-size: 1.5rem;
+            font-weight: bold;
+            background: linear-gradient(135deg, #00D4FF 0%, #BD34FE 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .logo img {
+            width: 40px;
+            height: 40px;
+            animation: float 3s ease-in-out infinite;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+            list-style: none;
+        }
+
+        .nav-links a {
+            color: var(--text-primary);
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        .nav-links a:hover {
+            color: var(--accent);
+        }
+
+        /* 主题切换器 */
+        .theme-switcher {
+            display: flex;
+            gap: 8px;
+            align-items: center;
+        }
+
+        .theme-btn {
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            border: 2px solid transparent;
+            cursor: pointer;
+            transition: transform 0.2s, border-color 0.2s;
+        }
+
+        .theme-btn:hover,
+        .theme-btn.active {
+            transform: scale(1.1);
+            border-color: white;
+        }
+
+        .theme-btn-tech { background: linear-gradient(135deg, #00D4FF, #BD34FE); }
+        .theme-btn-warm { background: linear-gradient(135deg, #FF8C42, #FFB6C1); }
+        .theme-btn-simple { background: linear-gradient(135deg, #000000, #C9A959); }
+        .theme-btn-active { background: linear-gradient(135deg, #7FB069, #00D4FF); }
+
+        /* Hero 区域 */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+            padding: 0 2rem;
+        }
+
+        .hero-bg {
+            position: absolute;
+            inset: 0;
+            opacity: 0.2;
+        }
+
+        .hero-bg-blob {
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(80px);
+            animation: blob 20s infinite;
+        }
+
+        .blob-1 {
+            width: 300px;
+            height: 300px;
+            background: var(--tech-cyan);
+            top: 10%;
+            left: 10%;
+        }
+
+        .blob-2 {
+            width: 300px;
+            height: 300px;
+            background: var(--neon-purple);
+            top: 20%;
+            right: 10%;
+            animation-delay: -7s;
+        }
+
+        .blob-3 {
+            width: 300px;
+            height: 300px;
+            background: var(--warm-orange);
+            bottom: 10%;
+            left: 50%;
+            animation-delay: -14s;
+        }
+
+        .hero-content {
+            position: relative;
+            text-align: center;
+            max-width: 800px;
+            z-index: 10;
+        }
+
+        .hero-title {
+            font-size: clamp(2.5rem, 8vw, 5rem);
+            font-weight: bold;
+            margin-bottom: 1.5rem;
+            background: linear-gradient(135deg, #00D4FF 0%, #BD34FE 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            opacity: 0;
+            animation: slideUp 0.8s ease-out forwards;
+        }
+
+        .hero-subtitle {
+            font-size: clamp(1rem, 3vw, 1.5rem);
+            color: var(--text-secondary);
+            margin-bottom: 3rem;
+            opacity: 0;
+            animation: slideUp 0.8s ease-out 0.2s forwards;
+        }
+
+        .hero-buttons {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            flex-wrap: wrap;
+            opacity: 0;
+            animation: slideUp 0.8s ease-out 0.4s forwards;
+        }
+
+        .btn {
+            padding: 1rem 2.5rem;
+            border-radius: 50px;
+            font-weight: 600;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: all 0.3s;
+            border: none;
+            text-decoration: none;
+            display: inline-block;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, #00D4FF 0%, #BD34FE 100%);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            transform: scale(1.05);
+            box-shadow: 0 10px 30px rgba(0, 212, 255, 0.4);
+        }
+
+        .btn-secondary {
+            background: transparent;
+            color: var(--text-primary);
+            border: 2px solid var(--accent);
+        }
+
+        .btn-secondary:hover {
+            background: var(--accent);
+            color: var(--bg-primary);
+        }
+
+        /* 关于我 */
+        .section {
+            padding: 6rem 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 2.5rem;
+            font-weight: bold;
+            margin-bottom: 1rem;
+            background: linear-gradient(135deg, #00D4FF 0%, #BD34FE 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .section-subtitle {
+            text-align: center;
+            color: var(--text-secondary);
+            font-size: 1.2rem;
+            margin-bottom: 4rem;
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+        }
+
+        .feature-card {
+            background: var(--bg-surface);
+            padding: 2.5rem;
+            border-radius: 20px;
+            text-align: center;
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(0, 212, 255, 0.2);
+        }
+
+        .feature-icon {
+            font-size: 3.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .feature-title {
+            font-size: 1.5rem;
+            font-weight: bold;
+            margin-bottom: 0.5rem;
+        }
+
+        .feature-desc {
+            color: var(--text-secondary);
+        }
+
+        /* 相册 */
+        .gallery-section {
+            background: var(--bg-surface);
+        }
+
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .gallery-item {
+            background: var(--bg-primary);
+            border-radius: 15px;
+            overflow: hidden;
+            transition: transform 0.3s;
+            cursor: pointer;
+        }
+
+        .gallery-item:hover {
+            transform: scale(1.03);
+        }
+
+        .gallery-img {
+            width: 100%;
+            aspect-ratio: 1;
+            background: linear-gradient(135deg, #00D4FF 0%, #BD34FE 100%);
+            opacity: 0.3;
+        }
+
+        .gallery-info {
+            padding: 1.5rem;
+        }
+
+        .gallery-info h3 {
+            margin-bottom: 0.5rem;
+        }
+
+        .gallery-info p {
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+        }
+
+        /* 页脚 */
+        .footer {
+            background: var(--bg-surface);
+            padding: 3rem 2rem;
+            border-top: 1px solid rgba(0, 212, 255, 0.2);
+        }
+
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        .footer-logo {
+            width: 80px;
+            height: 80px;
+            margin: 0 auto 1.5rem;
+            animation: float 3s ease-in-out infinite;
+        }
+
+        .footer-text {
+            margin-bottom: 1rem;
+            background: linear-gradient(135deg, #00D4FF 0%, #BD34FE 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            font-weight: 600;
+        }
+
+        .footer-subtext {
+            color: var(--text-secondary);
+            margin-bottom: 1.5rem;
+        }
+
+        .footer-info {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+        }
+
+        /* 动画 */
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+
+        @keyframes slideUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes blob {
+            0%, 100% { transform: translate(0, 0) scale(1); }
+            33% { transform: translate(30px, -50px) scale(1.1); }
+            66% { transform: translate(-20px, 20px) scale(0.9); }
+        }
+
+        /* 响应式 */
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+            }
+
+            .hero-buttons {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .footer-info {
+                flex-direction: column;
+                gap: 0.5rem;
+            }
+        }
+    </style>
+</head>
+<body class="theme-tech">
+    <!-- 导航栏 -->
+    <nav class="navbar">
+        <div class="navbar-content">
+            <div class="logo">
+                <img src="favicon.svg" alt="Logo">
+                <span>猫猫の成长记录</span>
+            </div>
+            <ul class="nav-links">
+                <li><a href="#home">首页</a></li>
+                <li><a href="#about">关于</a></li>
+                <li><a href="#gallery">相册</a></li>
+                <li><a href="#video">视频</a></li>
+                <li><a href="#contact">联系</a></li>
+            </ul>
+            <div class="theme-switcher">
+                <button class="theme-btn theme-btn-tech active" onclick="switchTheme('tech')" title="科技未来"></button>
+                <button class="theme-btn theme-btn-warm" onclick="switchTheme('warm')" title="温馨治愈"></button>
+                <button class="theme-btn theme-btn-simple" onclick="switchTheme('simple')" title="简约高级"></button>
+                <button class="theme-btn theme-btn-active" onclick="switchTheme('active')" title="活泼青春"></button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero 区域 -->
+    <section id="home" class="hero">
+        <div class="hero-bg">
+            <div class="hero-bg-blob blob-1"></div>
+            <div class="hero-bg-blob blob-2"></div>
+            <div class="hero-bg-blob blob-3"></div>
+        </div>
+        <div class="hero-content">
+            <h1 class="hero-title">时光不语，成长有迹</h1>
+            <p class="hero-subtitle">记录每一个闪闪发光的日子</p>
+            <div class="hero-buttons">
+                <a href="#gallery" class="btn btn-primary">开始探索</a>
+                <a href="#about" class="btn btn-secondary">了解更多</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- 关于我 -->
+    <section id="about" class="section">
+        <h2 class="section-title">关于我</h2>
+        <p class="section-subtitle">这里是猫猫的小天地，记录着从过去到现在的点点滴滴</p>
+        <div class="features-grid">
+            <div class="feature-card">
+                <div class="feature-icon">📚</div>
+                <h3 class="feature-title">学习成长</h3>
+                <p class="feature-desc">不断学习，持续进步</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">🎨</div>
+                <h3 class="feature-title">兴趣爱好</h3>
+                <p class="feature-desc">探索世界的美好</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">🎯</div>
+                <h3 class="feature-title">目标规划</h3>
+                <p class="feature-desc">成为更好的自己</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- 相册展示 -->
+    <section id="gallery" class="section gallery-section">
+        <h2 class="section-title">成长足迹</h2>
+        <p class="section-subtitle">定格瞬间，珍藏永恒</p>
+        <div class="gallery-grid">
+            <div class="gallery-item">
+                <div class="gallery-img"></div>
+                <div class="gallery-info">
+                    <h3>成长瞬间 #1</h3>
+                    <p>每一段旅程都值得被记录</p>
+                </div>
+            </div>
+            <div class="gallery-item">
+                <div class="gallery-img"></div>
+                <div class="gallery-info">
+                    <h3>成长瞬间 #2</h3>
+                    <p>每一段旅程都值得被记录</p>
+                </div>
+            </div>
+            <div class="gallery-item">
+                <div class="gallery-img"></div>
+                <div class="gallery-info">
+                    <h3>成长瞬间 #3</h3>
+                    <p>每一段旅程都值得被记录</p>
+                </div>
+            </div>
+            <div class="gallery-item">
+                <div class="gallery-img"></div>
+                <div class="gallery-info">
+                    <h3>成长瞬间 #4</h3>
+                    <p>每一段旅程都值得被记录</p>
+                </div>
+            </div>
+            <div class="gallery-item">
+                <div class="gallery-img"></div>
+                <div class="gallery-info">
+                    <h3>成长瞬间 #5</h3>
+                    <p>每一段旅程都值得被记录</p>
+                </div>
+            </div>
+            <div class="gallery-item">
+                <div class="gallery-img"></div>
+                <div class="gallery-info">
+                    <h3>成长瞬间 #6</h3>
+                    <p>每一段旅程都值得被记录</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 页脚 -->
+    <footer id="contact" class="footer">
+        <div class="footer-content">
+            <img src="logo.svg" alt="Logo" class="footer-logo">
+            <p class="footer-text">Made with ❤️ by 猫猫 | Columbia Growth</p>
+            <p class="footer-subtext">时光不语，成长有迹</p>
+            <div class="footer-info">
+                <span>QQ: 2973464622</span>
+                <span>邮箱：2973464622@qq.com</span>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // 主题切换
+        function switchTheme(themeName) {
+            document.body.className = 'theme-' + themeName;
+            localStorage.setItem('theme', themeName);
+            
+            // 更新按钮状态
+            document.querySelectorAll('.theme-btn').forEach(btn => {
+                btn.classList.remove('active');
+            });
+            document.querySelector('.theme-btn-' + themeName).classList.add('active');
+        }
+
+        // 加载保存的主题
+        window.addEventListener('DOMContentLoaded', () => {
+            const savedTheme = localStorage.getItem('theme') || 'tech';
+            switchTheme(savedTheme);
+        });
+
+        // 平滑滚动
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({ behavior: 'smooth' });
+                }
+            });
+        });
+    </script>
+</body>
+</html>
+
