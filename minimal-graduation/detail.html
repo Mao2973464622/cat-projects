@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>商品详情 - 𝓒𝓲𝓪𝓵𝓵𝓸～(∠・ω< )⌒☆ 猫猫の前端毕设</title>
+  <link rel="stylesheet" href="/Minimal/common.css">
+  <link rel="stylesheet" href="/Minimal/goods_card.css">
+</head>
+<body>
+  <!-- 导航栏 -->
+  <nav class="navbar">
+    <div class="nav-container">
+      <h1 class="logo">𝓒𝓲𝓪𝓵𝓵𝓸～(∠・ω< )⌒☆ 猫猫の前端毕设</h1>
+      <div class="nav-links">
+        <a href="index.html">首页</a>
+        <a href="list.html">商品列表</a>
+        <a href="add.html">新增商品</a>
+        <a href="developer.html">开发者说明</a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- 商品详情 -->
+  <div class="container detail-page">
+    <div id="goodsDetail">
+      <!-- 详情由JS渲染 -->
+    </div>
+    <div class="detail-actions">
+      <a href="list.html" class="btn">返回列表</a>
+      <a href="" id="editBtn" class="btn btn-secondary">编辑商品</a>
+      <button id="deleteBtn" class="btn btn-danger">删除商品</button>
+    </div>
+  </div>
+
+  <!-- 底部 -->
+  <footer>
+    <p>𝓒𝓲𝓪𝓵𝓵𝓸～(∠・ω< )⌒☆ 猫猫の前端毕设 © 2026 | 湖南九嶷职业技术学院 毕设作品 | 前端展示</p>
+  </footer>
+
+  <script src="/Minimal/common.js"></script>
+  <script src="/Minimal/crud.js"></script>
+  <script>
+    // 获取URL中的商品ID
+    let urlParams = new URLSearchParams(window.location.search);
+    let goodsId = urlParams.get('id');
+
+    // 渲染详情
+    fetch('./goods.json')
+      .then(res => res.json())
+      .then(data => {
+        let goods = data.find(item => item.id == goodsId);
+        if (!goods) {
+          document.getElementById('goodsDetail').innerHTML = '<p class="empty-tip">商品不存在<br>纯前端受浏览器安全限制，无法直接修改本地goods.json</p>';
+          return;
+        }
+
+        // 渲染详情内容
+        document.getElementById('goodsDetail').innerHTML = `
+          <div class="detail-card">
+            <img src="${goods.img_url}" alt="${goods.name}">
+            <div class="detail-info">
+              <h2>${goods.name}</h2>
+              <p class="category">分类：${goods.category}</p>
+              <p class="price">¥${goods.price}</p>
+              <p class="score">评分：${goods.score}星</p>
+              <p class="create-time">添加时间：${goods.create_time}</p>
+              <div class="experience">
+                <h4>✨ 自用体验：</h4>
+                <p>${goods.experience}</p>
+              </div>
+              <div class="shortage">
+                <h4>❌ 小缺点：</h4>
+                <p>${goods.shortage}</p>
+              </div>
+              <a href="${goods.buy_url}" target="_blank" class="btn btn-sm">购买链接（演示）</a>
+            </div>
+          </div>
+        `;
+
+        // 设置编辑按钮链接
+        document.getElementById('editBtn').href = `edit.html?id=${goodsId}`;
+        
+        // 删除按钮事件
+        document.getElementById('deleteBtn').addEventListener('click', function() {
+          deleteGoods(goodsId);
+          setTimeout(() => {
+            window.location.href = 'list.html';
+          }, 1000);
+        });
+      });
+  </script>
+</body>
+</html>
