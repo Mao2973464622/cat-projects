@@ -1,0 +1,179 @@
+/* 全局样式 */
+:root {
+  --main-color: #f60;    /* 主色调：暖橙 */
+  --bg-color: #fff;      /* 背景白 */
+  --gray-color: #f5f5f5; /* 浅灰 */
+  --border-color: #eee;  /* 边框灰 */
+  --text-color: #333;    /* 文字色 */
+  --danger-color: #ff4444; /* 危险色 */
+  --secondary-color: #666; /* 次要色 */
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  background: var(--gray-color);
+  color: var(--text-color);
+  font-family: "微软雅黑", "思源黑体", sans-serif;
+  line-height: 1.6;
+}
+
+/* 容器 */
+.container {
+  width: 90%;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 20px 0;
+}
+
+/* 导航栏 */
+.navbar {
+  background: var(--bg-color);
+  border-bottom: 1px solid var(--border-color);
+  padding: 10px 0;
+  position: sticky;
+  top: 0;
+  z-index: 999;
+}
+
+.nav-container {
+  width: 90%;
+  max-width: 1200px;
+  margin: 0 auto;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.logo {
+  font-size: 1.5rem;
+  color: var(--main-color);
+  margin: 0;
+}
+
+.nav-links a {
+  color: var(--text-color);
+  text-decoration: none;
+  margin: 0 10px;
+  padding: 5px 0;
+  transition: color 0.2s ease;
+}
+
+.nav-links a:hover {
+  color: var(--main-color);
+}
+
+/* 标题 */
+.title {
+  font-size: 1.4rem;
+  margin-bottom: 20px;
+  color: var(--main-color);
+}
+
+/* 按钮 */
+.btn {
+  display: inline-block;
+  background: var(--main-color);
+  color: white;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 4px;
+  cursor: pointer;
+  text-decoration: none;
+  font-size: 1rem;
+  transition: background 0.2s ease;
+  margin: 5px;
+}
+
+.btn:hover {
+  background: #e55a00;
+}
+
+.btn-sm {
+  padding: 5px 10px;
+  font-size: 0.9rem;
+}
+
+.btn-secondary {
+  background: var(--secondary-color);
+}
+
+.btn-secondary:hover {
+  background: #555;
+}
+
+.btn-danger {
+  background: var(--danger-color);
+}
+
+.btn-danger:hover {
+  background: #cc0000;
+}
+
+/* 轮播/横幅 */
+.banner {
+  background: linear-gradient(to right, #ff9a9e, #fad0c4);
+  color: white;
+  padding: 60px 0;
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.banner-content {
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.banner h2 {
+  font-size: 2rem;
+  margin-bottom: 10px;
+}
+
+.banner p {
+  font-size: 1.1rem;
+  margin-bottom: 20px;
+}
+
+/* 底部 */
+footer {
+  background: var(--bg-color);
+  border-top: 1px solid var(--border-color);
+  text-align: center;
+  padding: 20px 0;
+  margin-top: 40px;
+  color: #666;
+}
+
+/* 空提示 */
+.empty-tip {
+  text-align: center;
+  padding: 40px 0;
+  color: #999;
+  font-size: 1.1rem;
+}
+
+/* 响应式 */
+@media (max-width: 768px) {
+  .nav-container {
+    flex-direction: column;
+    text-align: center;
+  }
+  .nav-links {
+    margin-top: 10px;
+  }
+  .banner {
+    padding: 40px 0;
+  }
+  .banner h2 {
+    font-size: 1.6rem;
+  }
+}
+
+html {
+  scroll-behavior: smooth; /* 平滑滚动 */
+}
