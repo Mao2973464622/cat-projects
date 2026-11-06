@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="zh-CN" class="font-hand" data-theme="dark-gold">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+<title>摸金交易行 · 涨跌看板</title>
+<meta name="description" content="摸金玩法交易行物价快照对比看板" />
+<meta name="theme-color" content="#121212" />
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%23121212'/%3E%3Ccircle cx='16' cy='16' r='8' fill='%23FFD700'/%3E%3C/svg%3E" />
+
+<!-- 霞鹜文楷（异步加载，仅作无系统行楷时的兜底；失败自动回退，不影响功能） -->
+<link rel="stylesheet" media="print" onload="this.media='all'"
+      href="https://cdn.jsdelivr.net/npm/lxgw-wenkai-webfont@1.7.0/style.css" />
+
+<link rel="stylesheet" href="css/style.css" />
+<link rel="stylesheet" href="css/theme.css" />
+</head>
+<body>
+
+<!-- ======================= 顶部 ======================= -->
+<header class="app-header">
+
+  <!-- 行1：标题 + 操作 -->
+  <div class="hd-row">
+    <h1>摸金交易行 · 涨跌看板</h1>
+    <div class="hd-acts">
+      <button class="icon-btn" id="btnFont"  title="切换字体（行楷 / 黑体）">楷</button>
+      <button class="icon-btn" id="btnReload" title="重新拉取数据">↻</button>
+      <button class="icon-btn" id="btnHistory" title="历史记录 / 主题">🕘</button>
+      <button class="icon-btn" id="btnSet" title="一键跌幅榜">⚡</button>
+    </div>
+  </div>
+
+  <!-- 行2：对比区间（单行） -->
+  <div class="cmp-bar">
+    <div class="cmp-picks">
+      <select id="selFrom" class="cmp-sel" aria-label="基准快照"></select>
+      <span class="cmp-arrow">→</span>
+      <select id="selTo" class="cmp-sel" aria-label="当前快照"></select>
+    </div>
+    <div class="cmp-span" id="cmpSpan">—</div>
+  </div>
+
+  <!-- 行4：统计概览（横滚，点击查看清单） -->
+  <div class="stats" id="stats"></div>
+
+  <!-- 行5：搜索 -->
+  <div class="search-wrap">
+    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.4">
+      <circle cx="11" cy="11" r="7"/><path d="M20 20l-3.5-3.5"/>
+    </svg>
+    <input id="search" type="text" placeholder="搜索物资名称…" />
+  </div>
+
+  <!-- 行6：筛选 + 排序胶囊 -->
+  <div class="chips" id="chips">
+    <button class="chip active" data-f="all">全部</button>
+    <button class="chip up"    data-f="up">涨</button>
+    <button class="chip down"  data-f="down">跌</button>
+    <button class="chip flat"  data-f="flat">平</button>
+    <button class="chip star"  data-f="fav">★</button>
+    <span class="chip-sep"></span>
+    <button class="chip sort" data-s="level">等级</button>
+    <button class="chip sort" data-s="name">名称</button>
+    <button class="chip sort" data-s="price">现价</button>
+    <button class="chip sort" data-s="chg">涨跌</button>
+    <button class="chip sort" data-s="none">默认</button>
+  </div>
+</header>
+
+<!-- ======================= 主体 ======================= -->
+<div class="layout">
+  <nav id="nav"></nav>
+  <main id="main">
+    <div class="list" id="list"></div>
+  </main>
+</div>
+
+<!-- ======================= 底部条 ======================= -->
+<footer>
+  <div><span id="countBar">0 项</span></div>
+  <div class="f-mid" id="footMid">—</div>
+  <div>★ <b id="favCount">0</b></div>
+</footer>
+
+<!-- ======================= 浮层 ======================= -->
+<div class="overlay" id="overlay"></div>
+
+<!-- 历史记录抽屉 -->
+<aside class="drawer" id="drawer">
+  <div class="dw-head">
+    <h2>历史记录</h2>
+    <button class="icon-btn" id="btnCloseDrawer">✕</button>
+  </div>
+  <div class="dw-body">
+    <div class="timeline" id="timeline"></div>
+    <div class="dw-section">
+      <h3>主题外观</h3>
+      <div class="th-list" id="thList"></div>
+      <button class="th-reset" id="thReset">恢复默认主题</button>
+      <div class="th-loading">
+        主题存在本地，下次打开自动应用。<br>
+        想加新主题？编辑 <code>css/theme.css</code>，复制一份 <code>[data-theme="..."]</code> 改颜色即可。
+      </div>
+    </div>
+    <div class="dw-section">
+      <h3>等级动效图例</h3>
+      <div class="legend">
+        <div><i class="lv-badge lv7"><span class="lv-txt">7级</span></i>炫彩流光 · 顶级物资</div>
+        <div><i class="lv-badge lv6"><span class="lv-txt">6级</span></i>赤红脉冲</div>
+        <div><i class="lv-badge lv5"><span class="lv-txt">5级</span></i>鎏金扫光</div>
+        <div><i class="lv-badge lv4"><span class="lv-txt">4级</span></i>靛青微澜</div>
+        <div><i class="lv-badge lv0"><span class="lv-txt">普通</span></i>灰 · 无特效</div>
+      </div>
+    </div>
+    <div class="dw-section">
+      <h3>如何更新数据</h3>
+      <div class="dw-note">
+        数据按快照拆分，新增记录只加文件、不改旧数据：<br>
+        ① 在 <code>data/index.json</code> 的 <code>snapshots</code> 数组<strong>追加一条</strong>快照元信息（id / time / short / tag）；<br>
+        ② 在 <code>data/snapshots/</code> 下<strong>新增一个同名文件</strong>（如 <code>s6.json</code>），内容为 <code>{"id":"s6","prices":{...}}</code>；<br>
+        ③ 提交后约 1 分钟生效，页面自动识别并接入走势图。<br>
+        新增物资<strong>种类</strong>才需要改 <code>data/items.json</code>。
+      </div>
+    </div>
+  </div>
+</aside>
+
+<!-- 统计详情 Sheet -->
+<aside class="sheet" id="sheet">
+  <div class="sh-handle"></div>
+  <div class="sh-head">
+    <h2 id="shTitle">—</h2>
+    <button class="icon-btn" id="btnCloseSheet">✕</button>
+  </div>
+  <div class="sh-body" id="shBody"></div>
+</aside>
+
+<!-- 物品详情弹窗 -->
+<div class="modal" id="modal">
+  <div class="mo-card">
+    <div class="mo-head">
+      <div>
+        <div class="mo-title" id="moTitle">—</div>
+        <div class="mo-sub" id="moSub">—</div>
+      </div>
+      <button class="icon-btn" id="btnCloseModal">✕</button>
+    </div>
+    <div class="mo-body" id="moBody"></div>
+  </div>
+</div>
+
+<!-- 加载 / 错误 -->
+<div class="boot" id="boot">
+  <div class="boot-inner">
+    <div class="boot-spin"></div>
+    <p id="bootMsg">正在载入数据…</p>
+  </div>
+</div>
+
+<script src="js/app.js"></script>
+</body>
+</html>
