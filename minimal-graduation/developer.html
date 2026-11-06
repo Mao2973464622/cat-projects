@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>开发者页面 - 猫猫の前端毕设 𝓒𝓲𝓪𝓵𝓵𝓸～(∠・ω< )⌒☆</title>
+  <link rel="stylesheet" href="/Minimal/common.css">
+  <style>
+    .container {
+      width: 90%;
+      max-width: 800px;
+      margin: 20px auto;
+      padding: 20px;
+      background: #fff;
+      border: 1px solid #eee;
+      border-radius: 6px;
+    }
+    h3 {
+      color: #f60;
+      border-bottom: 1px solid #eee;
+      padding-bottom: 10px;
+      margin-top: 25px;
+    }
+    p {
+      line-height: 1.8;
+      margin: 10px 0;
+    }
+    .info-item {
+      margin: 20px 0;
+    }
+    nav {
+      background: #f5f5f5;
+      padding: 10px;
+      margin-bottom: 20px;
+    }
+    nav a {
+      margin: 0 8px;
+      color: #666;
+      text-decoration: none;
+    }
+    footer {
+      text-align: center;
+      padding: 15px;
+      background: #f5f5f5;
+      margin-top: 30px;
+      color: #666;
+    }
+    .emoji {
+      font-size: 1.2em;
+      margin: 0 5px;
+    }
+    .tips {
+      background: #fef9e7;
+      padding: 10px;
+      border-radius: 4px;
+      margin: 15px 0;
+      font-size: 0.9em;
+      color: #d68910;
+    }
+  </style>
+</head>
+<body>
+  <nav>
+    <a href="index.html">首页</a> | 
+    <a href="list.html">商品列表</a> | 
+    <a href="add.html">新增商品</a> | 
+    <a href="developer.html">开发者说明</a>
+  </nav>
+
+  <div class="container">
+    <h2>猫猫の前端毕设 𝓒𝓲𝓪𝓵𝓵𝓸～(∠・ω< )⌒☆  - 开发者说明</h2>
+
+    <div class="info-item">
+      <h3>1. 作者信息 <span class="emoji">👧</span></h3>
+      <p>作者：猫猫</p>
+      <p>学校：湖南九嶷职业技术学院</p>
+      <p>专业：计算机应用技术</p>
+      <p>QQ：2973464622</p>
+      <p>邮箱：2973464622@qq.com</p>
+      <p>开发时间：2026年3月</p>
+      <p>开发工具：VS+豆包AI</p>
+    </div>
+
+    <div class="info-item">
+      <h3>2. 网站用途 <span class="emoji">🎓</span></h3>
+      <p>1. 核心用途：作为湖南九嶷职业技术学院的毕业设计作品，展示“纯前端实现商品信息动态管理”的前端开发能力awa</p>
+      <p>2. 辅助用途：几乎无实际作用awa</p>
+      <p>3. 展示内容：包含商品列表展示、新增/编辑/删除商品等核心功能，数据存储于本地JSON文件，无需服务器即可运行，利用服务器可以更好的运行awa</p>
+      <div class="tips">
+        小提示：本项目仅用于毕业设计展示，无任何商业用途。qwq
+      </div>
+    </div>
+
+    <div class="info-item">
+      <h3>3. 用到的技术（大白话版）<span class="emoji">💻</span></h3>
+      <p>• HTML：搭建页面基础结构，如导航栏、商品卡片、表单等；</p>
+      <p>• CSS：调整页面样式，优化视觉效果，适配不同设备显示；</p>
+      <p>• JavaScript：实现页面动态功能，完成商品信息的增删改查；</p>
+      <p>• JSON文件：本地数据存储载体，模拟数据库功能；</p>
+      <p>• 开发工具：VS Code（代码编写）、豆包（思路梳理）、Chrome浏览器（页面测试）；</p>
+      <p>• 图片素材：来源于网络</p>
+    </div>
+
+    <div class="info-item">
+      <h3>4. 动态管理功能说明（毕设核心）<span class="emoji">🔧</span></h3>
+      <p>本项目通过纯前端技术实现动态数据管理，满足毕设核心要求：</p>
+      <p>• 商品列表页（list.html）：从JSON文件读取商品数据展示（查），支持商品删除（删）；</p>
+      <p>• 新增商品页（add.html）：表单提交后，数据写入JSON文件（增），列表页自动更新；</p>
+      <p>• 编辑商品页（edit.html）：修改商品信息后，同步更新JSON文件数据（改）；</p>
+      <p>所有操作无需修改HTML代码，通过前端交互即可完成数据动态管理。</p>
+    </div>
+
+    <div class="info-item">
+      <h3>5. 跨平台适配说明 <span class="emoji">📱</span></h3>
+      <p>本项目已完成全终端跨平台适配，能在不同设备上正常展示和操作：</p>
+      <p>• 适配范围：电脑端（Windows/macOS）、平板端、手机端（安卓/iOS）；</p>
+      <p>• 适配方式：采用Flex弹性布局，商品卡片数量随屏幕大小自动调整（电脑3个/平板2个/手机1个）；</p>
+      <p>• 样式适配：使用%/rem相对单位替代固定像素，页面元素随屏幕缩放；</p>
+      <p>• 交互适配：移动端按钮/输入框放大适配触屏操作；</p>
+      <p>• 兼容说明：优先适配Chrome主流浏览器，满足毕设演示核心需求。</p>
+    </div>
+
+    <div class="info-item">
+      <h3>6. 性能与交互优化说明 <span class="emoji">⚡</span></h3>
+      <p>### 加载速度优化</p>
+      <p>• 图片懒加载：商品图片仅在滚动到可视区域时加载，减少首次加载资源；</p>
+      <p>• 代码精简：合并重复CSS/JS代码，删除冗余注释，减少文件体积；</p>
+      <p>• 本地数据缓存：常用商品数据缓存至localStorage，减少JSON文件读取次数；</p>
+      <p>### 页面美观优化</p>
+      <p>• 统一视觉风格：主色调采用暖橙+浅灰+白色，无杂色，视觉简洁协调；</p>
+      <p>• 细节打磨：商品卡片添加轻微圆角+hover边框变色，表单输入框聚焦高亮；</p>
+      <p>• 间距规范：页面模块间距统一为20px，卡片内边距15px，布局整齐不拥挤；</p>
+      <p>### 交互效果优化</p>
+      <p>• 操作反馈：新增/删除商品后弹出轻提示（非系统alert），更友好；</p>
+      <p>• 表单验证：实时提示输入错误（如价格仅允许数字），减少操作失误；</p>
+      <p>• 平滑过渡：页面跳转、卡片hover添加0.2s平滑动画，无生硬卡顿。</p>
+    </div>
+
+    <div class="info-item">
+      <h3>7. 免责申明 <span class="emoji">📝</span></h3>
+      <p>1. 本站商品信息、图片均为演示素材，仅用于毕业设计展示，不涉及商业交易；</p>
+      <p>2. 商品链接仅为功能演示，本人不参与商品交易，不承担商品相关责任；</p>
+      <p>3. 数据存储于云服务器,但使用的是json所以无需担心数据泄露</p>
+      <p>4. 若素材存在侵权问题，可联系QQ：2973464622进行删除。</p>
+    </div>
+  </div>
+
+  <footer>
+    <p>猫猫の前端毕设 𝓒𝓲𝓪𝓵𝓵𝓸～(∠・ω< )⌒☆ © 2026 | 湖南九嶷职业技术学院 毕设作品 | 前端展示 </p>
+  </footer>
+
+  <script src="/Minimal/common.js"></script>
+</body>
+</html>
