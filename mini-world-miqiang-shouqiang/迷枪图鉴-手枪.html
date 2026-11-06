@@ -1,0 +1,393 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no,viewport-fit=cover">
+<meta name="theme-color" content="#4a6cf7">
+<title>迷枪图鉴</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
+:root{--deco:'STXingkai','华文行楷','Xingkai SC','行楷','STKaiti','KaiTi','楷体',cursive;--bg:#f3f4f9;--card:#fff;--line:#e9ebf3;--tx:#191d2e;--sub:#8b91a9;--brand:#4a6cf7;--brand2:#7b5cf0;--sh:0 3px 14px rgba(30,40,90,.07);--ease:cubic-bezier(.22,.9,.32,1.2)}
+body.lock{position:fixed;left:0;right:0;width:100%;overflow:hidden}
+body{background:var(--bg);color:var(--tx);font:15px/1.5 -apple-system,BlinkMacSystemFont,"PingFang SC","Microsoft YaHei",sans-serif;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+.wrap{max-width:520px;margin:0 auto;min-height:100vh;background:var(--bg);padding-bottom:calc(46px + env(safe-area-inset-bottom))}
+header{padding:calc(20px + env(safe-area-inset-top)) 17px 26px;background:linear-gradient(135deg,var(--brand),var(--brand2));color:#fff;transition:background .5s var(--ease);position:relative;overflow:hidden}
+header::after{content:"";position:absolute;right:-40px;top:-50px;width:180px;height:180px;border-radius:50%;background:rgba(255,255,255,.10)}
+header h1{font-size:21px;font-weight:800;letter-spacing:2px;position:relative;font-family:var(--deco)}
+header p{font-size:12px;opacity:.85;margin-top:4px;position:relative}
+.panel{margin:-16px 12px 0;background:var(--card);border-radius:14px;padding:12px;box-shadow:var(--sh);position:relative;z-index:2}
+.sw{display:flex;align-items:center;gap:8px;border:1px solid var(--line);border-radius:10px;padding:0 11px;background:#fbfbfe;transition:border-color .25s,box-shadow .25s,background .25s}
+.sw.on{border-color:var(--brand);background:#fff;box-shadow:0 0 0 3px rgba(74,108,247,.11)}
+.sw svg{flex:0 0 auto;transition:transform .3s var(--ease)}
+.sw.on svg{transform:scale(1.12) rotate(-8deg)}
+input[type=text]{flex:1;min-width:0;border:0;background:transparent;padding:11px 0;font-size:14px;font-family:inherit;color:var(--tx);outline:none}
+input::placeholder{color:#aeb4c6}
+.clrx{flex:0 0 auto;width:19px;height:19px;border:0;border-radius:50%;background:#e6e8f0;color:#8b91a9;font-size:12px;line-height:19px;text-align:center;padding:0;display:none;font-family:inherit}
+.sw.on .clrx{display:block}
+.clrx:active{transform:scale(.85)}
+.frow{display:flex;gap:7px;margin-top:8px}
+.pk{flex:1;min-width:0;display:flex;align-items:center;gap:6px;border:1px solid var(--line);border-radius:10px;padding:9px 10px;font-size:12.5px;font-family:inherit;background:#fbfbfe;color:#5b6180;cursor:pointer;position:relative;overflow:hidden;transition:transform .13s var(--ease),border-color .25s,background-color .25s,color .2s,box-shadow .25s}
+.pk:active{transform:scale(.955)}
+.pk .pi{flex:0 0 auto;width:15px;height:15px;border-radius:5px;display:flex;align-items:center;justify-content:center;font-size:10px;transition:transform .3s var(--ease)}
+.pk .pi svg{width:11px;height:11px}
+.pk .pt{flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;text-align:left}
+.pk .pdot{flex:0 0 auto;width:8px;height:8px;border-radius:50%;transition:transform .3s var(--ease)}
+.pk .par{flex:0 0 auto;color:#b6bbcd;font-size:9px;transition:transform .3s var(--ease)}
+.pk.pick{border-color:var(--brand);background:var(--brand);color:#fff;font-weight:700;box-shadow:0 3px 10px rgba(74,108,247,.22)}
+.pk.pick .par{color:rgba(255,255,255,.85)}
+.pk.pick .pi{transform:rotate(-6deg) scale(1.1)}
+.clr{border:1px solid var(--line);background:#fbfbfe;color:#8b91a9;font-size:12.5px;padding:0 13px;border-radius:10px;font-family:inherit;white-space:nowrap;transition:transform .12s,opacity .2s}
+.clr:active{transform:scale(.93)}
+.bar{display:flex;justify-content:space-between;align-items:center;padding:14px 17px 9px;font-size:12px;color:var(--sub)}
+.bar b{color:var(--brand);font-size:13.5px;font-weight:800}
+.bump{display:inline-block;animation:bump .42s var(--ease)}
+@keyframes bump{0%{transform:scale(.4);opacity:0}60%{transform:scale(1.25)}100%{transform:scale(1);opacity:1}}
+.tgl{border:0;background:transparent;color:var(--brand);font-size:12px;font-weight:700;font-family:inherit;padding:4px 6px;border-radius:6px}
+.tgl:active{transform:scale(.92)}
+#box{padding:0 12px}
+.mcard{background:var(--card);border-radius:14px;box-shadow:var(--sh);margin-bottom:10px;overflow:hidden;opacity:0;transform:translateY(10px);animation:rise .42s var(--ease) forwards}
+@keyframes rise{to{opacity:1;transform:none}}
+.mhead{display:flex;align-items:center;gap:10px;padding:13px 13px;position:relative;transition:background .18s}
+.mhead:active{background:#f6f7fc}
+.midx{flex:0 0 auto;width:26px;height:26px;border-radius:8px;background:linear-gradient(135deg,var(--brand),var(--brand2));color:#fff;font-size:12px;font-weight:800;line-height:26px;text-align:center;transition:transform .3s var(--ease)}
+.mcard.open .midx{transform:rotate(-8deg) scale(1.08)}
+.mmid{flex:1;min-width:0}
+.mmid b{font-size:15.5px;font-weight:700;display:block;font-family:var(--deco);letter-spacing:.5px}
+.qbar{display:flex;height:4px;border-radius:3px;overflow:hidden;margin-top:6px;background:#eef0f6;max-width:150px}
+.qbar i{display:block;height:100%;transition:flex-grow .4s var(--ease)}
+.mnum{flex:0 0 auto;text-align:right}
+.mnum b{font-size:15px;font-weight:800;color:var(--tx);display:block;line-height:1.1}
+.mnum i{font-style:normal;font-size:10.5px;color:var(--sub)}
+.arw{flex:0 0 auto;color:#ccd0e0;font-size:15px;transition:transform .32s var(--ease),color .2s;margin-left:2px}
+.mcard.open .arw{transform:rotate(90deg);color:var(--brand)}
+.mbody{max-height:0;opacity:0;transition:max-height .38s var(--ease),opacity .26s}
+.mcard.open .mbody{max-height:2600px;opacity:1}
+.mbin{padding:2px 11px 13px;display:grid;grid-template-columns:1fr 1fr;gap:7px}
+.sk{position:relative;overflow:hidden;border-radius:10px;padding:9px 10px;border:1px solid var(--line);background:#fbfbfe;display:flex;flex-direction:column;gap:3px;transition:transform .14s var(--ease),box-shadow .2s,border-color .2s;opacity:0;transform:scale(.94);animation:pin .3s var(--ease) forwards}
+@keyframes pin{to{opacity:1;transform:none}}
+.sk:active{transform:scale(.93);box-shadow:0 2px 10px rgba(30,40,90,.10)}
+.sk .qd{width:7px;height:7px;border-radius:50%;flex:0 0 auto;display:inline-block;margin-right:5px;vertical-align:middle}
+.sk b{font-size:13.5px;font-weight:600;line-height:1.34;word-break:break-all;font-family:var(--deco);letter-spacing:.3px}
+.sk i{font-style:normal;font-size:10.5px;color:var(--sub)}
+.sk .stag{font-size:9.5px;padding:1px 5px;border-radius:20px;background:#eff1f8;color:#7b81a0;align-self:flex-start;margin-top:2px;max-width:100%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.sk.god{border-color:rgba(255,77,79,.45);background:linear-gradient(140deg,#fff5f5,#fff);animation:pin .3s var(--ease) forwards,sweepbg 2.8s ease-in-out infinite}
+@keyframes sweepbg{0%,72%{box-shadow:0 0 0 rgba(255,77,79,0)}85%{box-shadow:0 0 12px rgba(255,77,79,.35)}100%{box-shadow:0 0 0 rgba(255,77,79,0)}}
+.sk.god .qd{box-shadow:0 0 6px 2px rgba(255,77,79,.45)}
+.rip{position:absolute;border-radius:50%;background:rgba(74,108,247,.28);transform:scale(0);animation:rip .55s ease-out forwards;pointer-events:none}
+@keyframes rip{to{transform:scale(2.6);opacity:0}}
+.res{background:var(--card);border-radius:14px;box-shadow:var(--sh);overflow:hidden}
+.item{border-bottom:1px solid #f2f3f8;position:relative;overflow:hidden}
+.item:last-child{border-bottom:0}
+.ihead{display:flex;align-items:center;gap:9px;padding:12px 13px;position:relative;transition:background .18s}
+.ihead:active{background:#f6f7fc}
+.iname{flex:1;min-width:0}
+.iname b{font-size:14.5px;font-weight:600;display:block;transition:color .2s;font-family:var(--deco);letter-spacing:.3px}
+.item.open .iname b{color:var(--brand)}
+.iname i{font-style:normal;font-size:11.5px;color:var(--sub)}
+.attrs{display:flex;flex-wrap:wrap;gap:5px}
+.at{font-size:11.5px;line-height:1.4;padding:4px 9px;border-radius:7px;border:1px solid;background:#fff;opacity:0;transform:translateY(5px);animation:pop .3s var(--ease) forwards}
+@keyframes pop{to{opacity:1;transform:none}}
+.at.god{font-weight:700;box-shadow:0 0 9px rgba(255,77,79,.28)}
+.none{font-size:12px;color:#aeb4c6}
+.ibody{max-height:0;opacity:0;transition:max-height .34s var(--ease),opacity .24s}
+.item.open .ibody{max-height:420px;opacity:1}
+.ibin{padding:0 13px 13px}
+.sec{font-size:11px;color:var(--sub);font-weight:700;margin-bottom:7px;letter-spacing:.5px}
+.more{display:block;width:100%;border:0;border-top:1px solid #f2f3f8;background:#fff;color:var(--brand);font-size:13px;font-weight:700;padding:13px;font-family:inherit}
+.more:active{background:#f6f7fc}
+.empty{background:var(--card);border-radius:14px;padding:38px 18px;text-align:center;color:var(--sub);font-size:13px;line-height:1.75;box-shadow:var(--sh);animation:shake .4s}
+@keyframes shake{0%,100%{transform:translateX(0)}25%{transform:translateX(-6px)}75%{transform:translateX(6px)}}
+#mask{position:fixed;inset:0;background:rgba(15,18,30,.42);opacity:0;pointer-events:none;transition:opacity .3s;z-index:50;touch-action:none}
+#mask.show{opacity:1;pointer-events:auto}
+#sheet{position:fixed;left:0;right:0;bottom:0;z-index:51;background:var(--card);border-radius:18px 18px 0 0;padding:0 16px calc(20px + env(safe-area-inset-bottom));transform:translateY(102%);transition:transform .36s var(--ease);max-width:520px;margin:0 auto;box-shadow:0 -6px 26px rgba(20,26,50,.18)}
+#sheet.show{transform:none}
+.grab{width:44px;height:5px;border-radius:4px;background:#d5d9e8;margin:8px auto 4px;transition:background .2s,width .2s}
+.grabzone{padding:2px 0 10px;flex:0 0 auto;touch-action:none;cursor:grab}
+.grabzone:active{cursor:grabbing}
+.grabzone:active .grab{background:var(--brand);width:56px}
+#osheet.drag,#sheet.drag{transition:none}
+.sh h3{font-size:18px;font-weight:800;line-height:1.35;font-family:var(--deco);letter-spacing:.8px}
+.sh .sub{font-size:12px;color:var(--sub);margin-top:4px;display:flex;align-items:center;gap:6px;flex-wrap:wrap}
+.qpill{font-size:11px;font-weight:700;padding:2px 8px;border-radius:20px;color:#fff}
+.sh .sec{margin-top:15px}
+.sh .at{font-size:12px;padding:5px 10px}
+.copy{margin-top:16px;width:100%;border:0;background:var(--brand);color:#fff;font-size:14px;font-weight:700;padding:12px;border-radius:11px;font-family:inherit;transition:transform .12s}
+.copy:active{transform:scale(.97)}
+.copy.ok{background:#2ea35f}
+#omask{position:fixed;inset:0;background:rgba(15,18,30,.46);opacity:0;pointer-events:none;transition:opacity .3s;z-index:60;touch-action:none}
+#omask.show{opacity:1;pointer-events:auto}
+#osheet{position:fixed;left:0;right:0;bottom:0;z-index:61;background:var(--card);border-radius:20px 20px 0 0;transform:translateY(103%);transition:transform .38s var(--ease);max-width:520px;margin:0 auto;box-shadow:0 -8px 30px rgba(20,26,50,.22);padding-bottom:calc(14px + env(safe-area-inset-bottom));max-height:86vh;display:flex;flex-direction:column}
+#osheet.show{transform:none}
+.ohead{padding:0 18px 8px;flex:0 0 auto}
+.ohead .grab{margin-bottom:10px}
+.otitle{display:flex;align-items:baseline;gap:8px}
+.otitle b{font-size:17px;font-weight:800;font-family:var(--deco);letter-spacing:1px}
+.otitle i{font-style:normal;font-size:11.5px;color:var(--sub)}
+.osrc{margin-top:10px;display:flex;align-items:center;gap:7px;border:1px solid var(--line);border-radius:9px;padding:8px 10px;background:#fbfbfe}
+.osrc svg{flex:0 0 auto}
+.osrc input{flex:1;min-width:0;border:0;background:transparent;font-size:13px;font-family:inherit;color:var(--tx);outline:none}
+.olist{overflow-y:auto;-webkit-overflow-scrolling:touch;padding:0 12px 14px;flex:1 1 auto;overscroll-behavior:contain}
+.opt{display:flex;align-items:center;gap:10px;padding:11px 12px;border-radius:11px;position:relative;overflow:hidden;transition:background .2s,transform .12s var(--ease);opacity:0;transform:translateY(7px);animation:oin .3s var(--ease) forwards}
+@keyframes oin{to{opacity:1;transform:none}}
+.opt+.opt{margin-top:2px}
+.opt:active{transform:scale(.975)}
+.opt .odot{flex:0 0 auto;width:10px;height:10px;border-radius:50%;box-shadow:0 0 0 3px rgba(0,0,0,.045)}
+.opt .on{flex:1;min-width:0;font-size:14px;font-weight:600;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;font-family:var(--deco);letter-spacing:.3px}
+.opt .oc{flex:0 0 auto;font-size:11px;color:var(--sub);background:#f1f3f9;border-radius:20px;padding:2px 8px;min-width:30px;text-align:center}
+.opt .or{flex:0 0 auto;width:19px;height:19px;border-radius:50%;border:1.8px solid #d3d7e4;position:relative;transition:border-color .25s,background .25s,transform .3s var(--ease)}
+.opt.sel{background:linear-gradient(100deg,rgba(74,108,247,.10),rgba(74,108,247,.03))}
+.opt.sel .on{color:var(--brand)}
+.opt.sel .or{border-color:var(--brand);background:var(--brand);transform:scale(1.06)}
+.opt.sel .or::after{content:"";position:absolute;left:50%;top:50%;width:6px;height:6px;margin:-3px 0 0 -3px;border-radius:50%;background:#fff;animation:tick .34s var(--ease)}
+@keyframes tick{0%{transform:scale(0)}60%{transform:scale(1.5)}100%{transform:scale(1)}}
+.opt.sel .oc{background:var(--brand);color:#fff;font-weight:700}
+.oempty{padding:26px;text-align:center;color:var(--sub);font-size:12.5px}
+#toast{position:fixed;left:50%;bottom:80px;transform:translate(-50%,14px);background:rgba(25,29,46,.92);color:#fff;font-size:12.5px;padding:9px 16px;border-radius:22px;opacity:0;pointer-events:none;transition:opacity .25s,transform .25s var(--ease);z-index:99;white-space:nowrap}
+#toast.show{opacity:1;transform:translate(-50%,0)}
+footer{text-align:center;font-size:11.5px;color:#aeb4c6;padding:18px 0 4px;font-family:var(--deco);letter-spacing:.5px}
+@media(prefers-color-scheme:dark){
+:root{--bg:#11131c;--card:#191c28;--line:#282c3c;--tx:#e7e9f2;--sub:#8a90a6;--sh:0 3px 14px rgba(0,0,0,.35)}
+.sw,input[type=text]{background:#141722}
+.pk{background:#141722;color:#8a90a6}
+.mhead:active,.ihead:active{background:#20242f}
+.sk{background:#1d2130}
+.sk.god{background:linear-gradient(140deg,#2a1c22,#1d2130)}
+.at{background:#20242f!important}
+.stag{background:#252a39;color:#9aa0b8}
+.opt.sel{background:linear-gradient(100deg,rgba(74,108,247,.18),transparent)}
+.oc{background:#252a39}
+.osrc{background:#141722}
+.more{background:var(--card)}
+.clr{background:#141722}
+}
+</style>
+</head>
+<body>
+<div class="wrap">
+<header><h1>迷枪图鉴</h1><p id="hsub">副武器 · 16 种型号 · 85 条皮肤</p>
+</header>
+<div class="panel">
+<div class="sw" id="sw">
+<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#8b91a9" stroke-width="2.4" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="M20 20l-3.6-3.6"/></svg>
+<input type="text" id="kw" placeholder="皮肤名 / 型号 / 系列 / 属性" autocomplete="off">
+<button class="clrx" id="clrx">✕</button>
+</div>
+<div class="frow">
+<button class="pk" id="pkQ"><span class="pi" id="piQ"></span><span class="pt" id="ptQ">全部品质</span><span class="par">▾</span></button>
+<button class="pk" id="pkA"><span class="pi" id="piA"></span><span class="pt" id="ptA">全部属性</span><span class="par">▾</span></button>
+<button class="clr" id="rst">重置</button></div>
+</div>
+<div class="bar"><span id="left"></span><button class="tgl" id="tgl">展开全部</button></div>
+<div id="box"></div>
+<footer>迷枪图鉴 · 数据录入 2026-09-11</footer>
+</div>
+<div id="omask"></div>
+<div id="osheet"><div class="grabzone" id="ogz"><div class="grab"></div></div><div class="ohead">
+<div class="otitle"><b id="otit">选择</b><i id="osub"></i></div>
+<div class="osrc" id="osrc"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#8b91a9" stroke-width="2.4" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="M20 20l-3.6-3.6"/></svg><input type="text" id="okw" placeholder="搜索选项" autocomplete="off"></div>
+</div><div class="olist" id="olist"></div></div>
+<div id="mask"></div>
+<div id="sheet"><div class="grabzone" id="sgz"><div class="grab"></div></div><div class="sh" id="sh"></div></div>
+<div id="toast"></div>
+<script>
+const DATA=[{"m":"USP","items":[{"n":"兔美美","q":"传说","s":[],"a":[["提升武器射程","#ff9500"],["腰射子弹扩散减小","#a855f7"],["载弹量提升","#3b82f6"],["开镜速率提升","#3b82f6"],["换弹速率提升","#3b82f6"]]},{"n":"糖果屋","q":"传说","s":["糖果屋"],"a":[["减少腰射子弹扩散","#ff9500"],["武器后坐力降低","#a855f7"],["载弹量提升","#3b82f6"],["开镜速率提升","#3b82f6"],["换弹速率提升","#3b82f6"]]},{"n":"荣耀","q":"史诗","s":["荣耀勋章"],"a":[["切枪速度加快","#a855f7"],["载弹量提升","#3b82f6"],["开镜速率提升","#3b82f6"],["换弹速率提升","#3b82f6"]]},{"n":"樱花","q":"史诗","s":[],"a":[["射速提高","#a855f7"],["载弹量提升","#3b82f6"],["开镜速率提升","#3b82f6"],["换弹速率提升","#3b82f6"]]},{"n":"巡游者","q":"史诗","s":[],"a":[["武器射程提高","#a855f7"],["载弹量提升","#3b82f6"],["开镜速率提升","#3b82f6"],["换弹速率提升","#3b82f6"]]},{"n":"调查局","q":"稀有","s":["调查局"],"a":[["载弹量提升","#3b82f6"],["开镜速率提升","#3b82f6"],["换弹速率提升","#3b82f6"]]},{"n":"橙子","q":"稀有","s":[],"a":[["载弹量提升","#3b82f6"],["开镜速率提升","#3b82f6"],["换弹速率提升","#3b82f6"]]},{"n":"USP（基础款）","q":"普通","s":[],"a":[]}]},{"m":"沙漠之鹰","items":[{"n":"深海主宰","q":"传说","s":["深海主宰"],"a":[["提高武器射速","#ff9500"],["武器后坐力降低","#a855f7"],["载弹量提升","#3b82f6"],["开镜速率提升","#3b82f6"],["换弹速率提升","#3b82f6"]]},{"n":"凤凰","q":"史诗","s":[],"a":[["腰射子弹扩散减小","#a855f7"],["载弹量提升","#3b82f6"],["开镜速率提升","#3b82f6"],["换弹速率提升","#3b82f6"]]},{"n":"荣耀","q":"史诗","s":["荣耀勋章"],"a":[["切枪速度加快","#a855f7"],["载弹量提升","#3b82f6"],["开镜速率提升","#3b82f6"],["换弹速率提升","#3b82f6"]]},{"n":"趣味时光","q":"稀有","s":["丛林"],"a":[["载弹量提升","#3b82f6"],["开镜速率提升","#3b82f6"],["换弹速率提升","#3b82f6"]]},{"n":"大马士革钢","q":"稀有","s":[],"a":[["载弹量提升","#3b82f6"],["开镜速率提升","#3b82f6"],["换弹速率提升","#3b82f6"]]},{"n":"沙漠之鹰（基础款）","q":"普通","s":[],"a":[]}]},{"m":"短管霰弹枪","items":[{"n":"荣耀","q":"史诗","s":["荣耀勋章"],"a":[["切枪速度加快","#a855f7"],["开镜速率提升","#3b82f6"],["换弹速率提升","#3b82f6"]]},{"n":"原子风暴","q":"稀有","s":["原子风暴"],"a":[["开镜速率提升","#3b82f6"],["换弹速率提升","#3b82f6"]]},{"n":"小海豚","q":"稀有","s":[],"a":[["持枪移速提高","#a855f7"],["开镜速率提升","#3b82f6"],["换弹速率提升","#3b82f6"]]},{"n":"短管霰弹枪（基础款）","q":"普通","s":[],"a":[]}]},{"m":"clock19","items":[{"n":"捣蛋家","q":"传说","s":["捣蛋盛宴"],"a":[["提高武器移速","#ff9500"],["武器射程提高","#a855f7"],["载弹量提升","#3b82f6"],["开镜速率提升","#3b82f6"],["换弹速率提升","#3b82f6"]]},{"n":"萌动出击","q":"传说","s":["萌动出击"],"a":[["武器射程 · 射速提升","#ff9500"],["腰射子弹扩散减小","#a855f7"],["载弹量提升","#3b82f6"],["开镜速率提升","#3b82f6"],["换弹速率提升","#3b82f6"]]},{"n":"怪兽派对","q":"史诗","s":[],"a":[["腰射子弹扩散减小","#a855f7"],["载弹量提升","#3b82f6"],["开镜速率提升","#3b82f6"],["换弹速率提升","#3b82f6"]]},{"n":"荣耀","q":"史诗","s":["荣耀勋章"],"a":[["切枪速度加快","#a855f7"],["载弹量提升","#3b82f6"],["开镜速率提升","#3b82f6"],["换弹速率提升","#3b82f6"]]},{"n":"壳中小精灵","q":"稀有","s":[],"a":[["载弹量提升","#3b82f6"],["开镜速率提升","#3b82f6"],["换弹速率提升","#3b82f6"]]},{"n":"孟婆·忘川","q":"稀有","s":[],"a":[["载弹量提升","#3b82f6"],["开镜速率提升","#3b82f6"],["换弹速率提升","#3b82f6"]]},{"n":"炽热节拍","q":"史诗","s":["炽热节拍"],"a":[["持枪移速提高","#a855f7"],["载弹量提升","#3b82f6"],["开镜速率提升","#3b82f6"],["换弹速率提升","#3b82f6"]]},{"n":"clock19（基础款）","q":"普通","s":[],"a":[]}]},{"m":"左轮","items":[{"n":"夏日作战","q":"传说","s":["夏日大作战"],"a":[["提升武器射程","#ff9500"],["射速提高","#a855f7"],["开镜速率提升","#3b82f6"],["换弹速率提升","#3b82f6"]]},{"n":"原恒星","q":"传说","s":["星核降临"],"a":[["减小腰射子弹扩散","#ff9500"],["射速提高","#a855f7"],["开镜速率提升","#3b82f6"],["换弹速率提升","#3b82f6"]]},{"n":"强强左轮","q":"传说","s":[],"a":[["提高持枪移速","#ff9500"],["射速提高","#a855f7"],["开镜速率提升","#3b82f6"],["换弹速率提升","#3b82f6"]]},{"n":"荣耀","q":"史诗","s":["荣耀勋章"],"a":[["切枪速度加快","#a855f7"],["开镜速率提升","#3b82f6"],["换弹速率提升","#3b82f6"]]},{"n":"圣堂礼拜","q":"稀有","s":[],"a":[["开镜速率提升","#3b82f6"],["换弹速率提升","#3b82f6"]]},{"n":"萝卜枪","q":"稀有","s":["萝卜刀"],"a":[["开镜速率提升","#3b82f6"],["换弹速率提升","#3b82f6"]]},{"n":"太阳神","q":"稀有","s":[],"a":[["开镜速率提升","#3b82f6"],["换弹速率提升","#3b82f6"]]},{"n":"左轮（基础款）","q":"普通","s":[],"a":[]}]},{"m":"双持柯尔特","items":[{"n":"绝命天启","q":"神兵","s":["绝命天启"],"a":[["天启制裁：大幅提高射程与开镜时的精准度","#ff4d4f"],["提高武器射速","#ff9500"],["可使用特殊近战武器","#ff9500"],["受击枪口上抬降低","#a855f7"],["载弹量提升","#3b82f6"],["开镜速率提升","#3b82f6"],["换弹速率提升","#3b82f6"]]},{"n":"干将莫邪","q":"传说","s":[],"a":[["提高持枪移速","#ff9500"],["腰射子弹扩散减小","#a855f7"],["武器后坐力降低","#a855f7"],["载弹量提升","#3b82f6"],["开镜速率提升","#3b82f6"],["换弹速率提升","#3b82f6"]]},{"n":"恋人","q":"传说","s":[],"a":[["降低武器后坐力","#ff9500"],["射速提高","#a855f7"],["载弹量提升","#3b82f6"],["开镜速率提升","#3b82f6"],["换弹速率提升","#3b82f6"]]},{"n":"绮梦幻旅","q":"传说","s":[],"a":[["提高武器射速","#ff9500"],["持枪移速提高","#a855f7"],["载弹量提升","#3b82f6"],["开镜速率提升","#3b82f6"],["换弹速率提升","#3b82f6"]]},{"n":"假日狂欢","q":"传说","s":[],"a":[["加强穿透效果","#ff9500"],["受击枪口上抬暂停","#a855f7"],["载弹量提升","#3b82f6"],["开镜速率提升","#3b82f6"],["换弹速率提升","#3b82f6"]]},{"n":"冰原射手","q":"史诗","s":["冰原射手"],"a":[["武器后坐力降低","#a855f7"],["载弹量提升","#3b82f6"],["开镜速率提升","#3b82f6"],["换弹速率提升","#3b82f6"]]},{"n":"双持柯尔特（基础款）","q":"普通","s":[],"a":[]}]},{"m":"双持霰弹枪","items":[{"n":"贯日","q":"神兵","s":[],"a":[["长虹贯日：淘汰玩家后回复2发当前弹匣弹药","#ff4d4f"],["野人克星：对野人伤害提升","#ff4d4f"],["提高持枪移速","#ff9500"],["具有专属检视动作","#ff9500"],["腰射子弹扩散减小","#a855f7"],["射速提高","#a855f7"],["开镜速率提升","#3b82f6"],["换弹速率提升","#3b82f6"]]},{"n":"占星术","q":"传说","s":[],"a":[["提升武器射程","#ff9500"],["射速提高","#a855f7"],["开镜速率提升","#3b82f6"],["换弹速率提升","#3b82f6"]]},{"n":"毒刺","q":"传说","s":[],"a":[["野人模式伤害提升","#ff9500"],["武器射程提高","#a855f7"],["开镜速率提升","#3b82f6"],["换弹速率提升","#3b82f6"]]},{"n":"萌龙特工队","q":"传说","s":["萌龙特工队"],"a":[["提高持枪移速","#ff9500"],["射速提高","#a855f7"],["开镜速率提升","#3b82f6"],["换弹速率提升","#3b82f6"]]},{"n":"纸质雕刻","q":"史诗","s":[],"a":[["腰射子弹扩散减小","#a855f7"],["开镜速率提升","#3b82f6"],["换弹速率提升","#3b82f6"]]},{"n":"出租车","q":"史诗","s":[],"a":[["持枪移速提高","#a855f7"],["受击枪口上抬降低","#a855f7"],["开镜速率提升","#3b82f6"],["换弹速率提升","#3b82f6"]]},{"n":"双持霰弹枪（基础款）","q":"普通","s":[],"a":[]}]},{"m":"毛瑟","items":[{"n":"荣誉英雄","q":"传说","s":["英雄之名"],"a":[["提升武器射程","#ff9500"],["持枪移速提高","#a855f7"],["切枪速度加快","#a855f7"],["载弹量提升","#3b82f6"],["开镜速率提升","#3b82f6"],["换弹速率提升","#3b82f6"]]},{"n":"守护者","q":"传说","s":[],"a":[["提升武器射程","#ff9500"],["受击枪口上抬降低","#a855f7"],["载弹量提升","#3b82f6"],["开镜速率提升","#3b82f6"],["换弹速率提升","#3b82f6"]]},{"n":"兔兔茶话会","q":"史诗","s":[],"a":[["武器射程提高","#a855f7"],["载弹量提升","#3b82f6"],["开镜速率提升","#3b82f6"],["换弹速率提升","#3b82f6"]]},{"n":"（基础款待补）","q":"普通","s":[],"a":[]}]},{"m":"双持沙鹰","items":[{"n":"此处熊出没","q":"传说","s":[],"a":[["提高持枪移速","#ff9500"],["武器后坐力降低","#a855f7"],["载弹量提升","#3b82f6"],["开镜速率提升","#3b82f6"],["换弹速率提升","#3b82f6"]]},{"n":"凛冬皇冠","q":"传说","s":[],"a":[["减少腰射子弹扩散","#ff9500"],["射速提高","#a855f7"],["载弹量提升","#3b82f6"],["开镜速率提升","#3b82f6"],["换弹速率提升","#3b82f6"]]},{"n":"小白龙","q":"传说","s":["西行万里"],"a":[["历经八十一难","#ff9500"],["显著降低受击上抬","#ff9500"],["武器后坐力降低","#a855f7"],["载弹量提升","#3b82f6"],["开镜速率提升","#3b82f6"],["换弹速率提升","#3b82f6"]]},{"n":"暖冬恋曲","q":"史诗","s":[],"a":[["腰射子弹扩散减小","#a855f7"],["载弹量提升","#3b82f6"],["开镜速率提升","#3b82f6"],["换弹速率提升","#3b82f6"]]},{"n":"双持沙鹰（基础款）","q":"普通","s":[],"a":[]}]},{"m":"双持USP","items":[{"n":"劲爆连载","q":"传说","s":[],"a":[["减少腰射子弹散射","#ff9500"],["受击枪口上抬降低","#a855f7"],["载弹量提升","#3b82f6"],["开镜速率提升","#3b82f6"],["换弹速率提升","#3b82f6"]]},{"n":"宿命轮回","q":"传说","s":["西行万里"],"a":[["提升武器射程","#ff9500"],["射速提高","#a855f7"],["载弹量提升","#3b82f6"],["开镜速率提升","#3b82f6"],["换弹速率提升","#3b82f6"]]},{"n":"双鱼座","q":"传说","s":["十二星宫"],"a":[["黄道十二宫星宫赐福小幅提升枪械射程","#ff9500"],["稳定性与腰射精度","#ff9500"],["切枪速度加快","#a855f7"],["载弹量提升","#3b82f6"],["开镜速率提升","#3b82f6"],["换弹速率提升","#3b82f6"]]},{"n":"莲花童子","q":"传说","s":[],"a":[["降低武器后坐力","#ff9500"],["持枪移速提高","#a855f7"],["载弹量提升","#3b82f6"],["开镜速率提升","#3b82f6"],["换弹速率提升","#3b82f6"]]},{"n":"喵星狂想","q":"史诗","s":[],"a":[["武器后坐力降低","#a855f7"],["载弹量提升","#3b82f6"],["开镜速率提升","#3b82f6"],["换弹速率提升","#3b82f6"]]},{"n":"双持USP（基础款）","q":"普通","s":[],"a":[]}]},{"m":"双持左轮","items":[{"n":"怒海狂徒","q":"传说","s":["怒海争锋"],"a":[["提高武器射速","#ff9500"],["武器后坐力降低","#a855f7"],["开镜速率提升","#3b82f6"],["换弹速率提升","#3b82f6"]]},{"n":"摩羯座","q":"传说","s":["十二星宫"],"a":[["黄道十二宫星宫赐福小幅提升枪械射程","#ff9500"],["稳定性与腰射精度","#ff9500"],["切枪速度加快","#a855f7"],["开镜速率提升","#3b82f6"],["换弹速率提升","#3b82f6"]]},{"n":"超人强","q":"史诗","s":[],"a":[["穿透效果增强","#a855f7"],["开镜速率提升","#3b82f6"],["换弹速率提升","#3b82f6"]]},{"n":"双持左轮（基础款）","q":"普通","s":[],"a":[]}]},{"m":"双持clock19","items":[{"n":"方天画戟","q":"神兵","s":[],"a":[["第一猛将","#ff4d4f"],["枪械伤害提升","#ff4d4f"],["野人克星","#ff4d4f"],["对野人伤害提升","#ff4d4f"],["减小散射子弹扩散","#ff9500"],["射速提高","#a855f7"],["武器射程提高","#a855f7"],["野人模式载弹量额外提升","#a855f7"],["载弹量提升","#3b82f6"],["开镜速率提升","#3b82f6"],["换弹速率提升","#3b82f6"]]},{"n":"夜族蚀刻","q":"传说","s":[],"a":[["提升武器伤害","#ff9500"],["持枪移速提高","#a855f7"],["武器后坐力降低","#a855f7"],["载弹量提升","#3b82f6"],["开镜速率提升","#3b82f6"],["换弹速率提升","#3b82f6"]]},{"n":"未来蛇影","q":"传说","s":[],"a":[["野人模式伤害提升","#ff9500"],["腰射子弹扩散减小","#a855f7"],["野人模式载弹量额外提升","#a855f7"],["载弹量提升","#3b82f6"],["开镜速率提升","#3b82f6"],["换弹速率提升","#3b82f6"]]},{"n":"双持clock19（基础款）","q":"普通","s":[],"a":[]}]},{"m":"CZ75","items":[{"n":"夜幕誓礼","q":"传说","s":[],"a":[["降低武器后坐力","#ff9500"],["射速提高","#a855f7"],["载弹量提升","#3b82f6"],["开镜速率提升","#3b82f6"],["换弹速率提升","#3b82f6"]]},{"n":"百变脸谱","q":"传说","s":[],"a":[["减小腰射子弹扩散","#ff9500"],["射速提高","#a855f7"],["载弹量提升","#3b82f6"],["开镜速率提升","#3b82f6"],["换弹速率提升","#3b82f6"]]},{"n":"月影飘灵","q":"史诗","s":[],"a":[["武器射程提高","#a855f7"],["载弹量提升","#3b82f6"],["开镜速率提升","#3b82f6"],["换弹速率提升","#3b82f6"]]},{"n":"（基础款待补）","q":"普通","s":[],"a":[]}]},{"m":"双持毛瑟","items":[{"n":"跃马鎏金","q":"传说","s":[],"a":[["提高持枪移速","#ff9500"],["武器射程提高","#a855f7"],["载弹量提升","#3b82f6"],["开镜速率提升","#3b82f6"],["换弹速率提升","#3b82f6"]]},{"n":"剪纸牵忆","q":"史诗","s":[],"a":[["穿透效果增强","#a855f7"],["持枪移速提高","#a855f7"]]},{"n":"（基础款待补）","q":"普通","s":[],"a":[]}]},{"m":"TEC9","items":[{"n":"沙海灯谕","q":"传说","s":[],"a":[["提升武器射程","#ff9500"],["腰射子弹扩散减小","#a855f7"],["载弹量提升","#3b82f6"],["开镜速率提升","#3b82f6"],["换弹速率提升","#3b82f6"]]},{"n":"圣夜礼赞","q":"史诗","s":[],"a":[["武器后坐力降低","#a855f7"],["载弹量提升","#3b82f6"],["开镜速率提升","#3b82f6"],["换弹速率提升","#3b82f6"]]},{"n":"火锅","q":"稀有","s":[],"a":[["载弹量提升","#3b82f6"],["开镜速率提升","#3b82f6"],["换弹速率提升","#3b82f6"]]},{"n":"（基础款待补）","q":"普通","s":[],"a":[]}]},{"m":"MAC10","items":[{"n":"猪猪侠·圣者炎龙","q":"传说","s":[],"a":[["降低武器后坐力","#ff9500"],["武器射程提高","#a855f7"],["载弹量提升","#3b82f6"],["开镜速率提升","#3b82f6"],["换弹速率提升","#3b82f6"]]},{"n":"惊世泰坦","q":"传说","s":[],"a":[["提升武器射程","#ff9500"],["武器后坐力降低","#a855f7"],["载弹量提升","#3b82f6"],["开镜速率提升","#3b82f6"],["换弹速率提升","#3b82f6"]]},{"n":"（基础款待补）","q":"普通","s":[],"a":[]}]}];
+const QC={'神兵':'#ff4d4f','传说':'#ff9500','史诗':'#a855f7','稀有':'#3b82f6','普通':'#94a3b8'};
+const QO=['神兵','传说','史诗','稀有','普通'];
+const QBG={'':['#4a6cf7','#7b5cf0'],'神兵':['#e0353a','#ff6b3d'],'传说':['#e08a00','#ffb43d'],'史诗':['#7b3fe4','#b06cf5'],'稀有':['#2563eb','#5b9bf8'],'普通':['#5c6478','#8d96ad']};
+let st={kw:'',q:'',a:''},shown=20,allOpen=false;
+const $=i=>document.getElementById(i);
+const box=$('box'),kw=$('kw'),sw=$('sw'),left=$('left'),tgl=$('tgl');
+const TOTAL=DATA.reduce((s,d)=>s+d.items.length,0);
+const TOTAL_WithAttr=DATA.reduce((s,d)=>s+d.items.filter(i=>i.a.length).length,0);
+const attrs=[...new Set(DATA.flatMap(d=>d.items.flatMap(i=>i.a.map(a=>a[0]))))].sort((a,b)=>a.localeCompare(b,'zh'));
+const ACNT={},ACOL={};
+DATA.flatMap(d=>d.items).forEach(i=>i.a.forEach(a=>{ACNT[a[0]]=(ACNT[a[0]]||0)+1;const r=QO.indexOf(i.q);if(ACOL[a[0]]===undefined||r<ACOL[a[0]])ACOL[a[0]]=r}));
+const ALIST=Object.keys(ACNT).map(k=>[k,ACNT[k],QC[QO[ACOL[k]]]]).sort((a,b)=>b[1]-a[1]||a[0].localeCompare(b[0],'zh'));
+const ICO_Q='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M12 3l2.6 5.6 6 .8-4.4 4.2 1.1 6-5.3-3-5.3 3 1.1-6L3.4 9.4l6-.8z"/></svg>';
+const ICO_A='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M4 7h16M4 12h11M4 17h6"/></svg>';
+function paintQ(){
+ const on=!!st.q;
+ $('pkQ').classList.toggle('pick',on);
+ $('ptQ').textContent=st.q||'全部品质';
+ $('piQ').innerHTML=on?`<span class="pdot" style="background:${QC[st.q]}"></span>`:ICO_Q;
+ $('pkQ').style.color=on?'':'';
+}
+function paintA(){
+ const on=!!st.a;
+ $('pkA').classList.toggle('pick',on);
+ $('ptA').textContent=st.a||'全部属性';
+ $('piA').innerHTML=on?`<span class="pdot" style="background:${ACOL[st.a]!==undefined?QC[QO[ACOL[st.a]]]:'#3b82f6'}"></span>`:ICO_A;
+}
+function applyQ(v){st.q=v;paintQ();const c=QBG[v]||QBG[''];document.documentElement.style.setProperty('--brand',c[0]);document.documentElement.style.setProperty('--brand2',c[1]);document.querySelector('meta[name=theme-color]').content=c[0];shown=20;render()}
+function applyA(v){st.a=v;paintA();shown=20;render()}
+let oKind='',oVal='';
+function openPicker(kind){
+ oKind=kind;oVal=kind==='q'?st.q:st.a;
+ const isQ=kind==='q';
+ $('otit').textContent=isQ?'选择品质':'选择属性';
+ $('osrc').style.display=isQ?'none':'flex';
+ $('okw').value='';
+ fillOpts('');
+ lockBody();$('omask').classList.add('show');$('osheet').classList.add('show');buzz(8);
+ const ol=$('olist'),cur=ol.querySelector('.opt.sel');
+ if(cur&&ol.scrollHeight>ol.clientHeight)setTimeout(()=>{ol.scrollTop=cur.offsetTop-ol.clientHeight/2+cur.offsetHeight/2},60);
+}
+function fillOpts(k){
+ const isQ=oKind==='q';
+ let rows=isQ?QO.map(q=>[q,DATA.reduce((s,d)=>s+d.items.filter(i=>i.q===q).length,0),QC[q]]):ALIST;
+ if(k)rows=rows.filter(r=>r[0].toLowerCase().includes(k.toLowerCase()));
+ if(!isQ&&!k)rows=[['',TOTAL_WithAttr,'#94a3b8']].concat(rows);
+ $('osub').textContent=rows.length+' 个选项';
+ if(!rows.length){$('olist').innerHTML='<div class="oempty">没有匹配的选项</div>';return}
+ $('olist').innerHTML=rows.map((r,i)=>{
+  const [nm,cnt,col]=r;const sel=(oVal===nm)||(nm===''&&oVal==='');
+  const disp=nm===''?'全部属性':nm;
+  return `<div class="opt${sel?' sel':''}" data-v="${nm}" style="animation-delay:${Math.min(i*18,320)}ms">
+  <span class="odot" style="background:${col}"></span><span class="on">${disp}</span>
+  <span class="oc">${cnt}</span><span class="or"></span></div>`}).join('');
+}
+$('okw').oninput=e=>fillOpts(e.target.value.trim());
+function dragClose(sheet,mask,zone,onClose){
+ let y0=0,y=0,drag=false;
+ const setY=v=>{sheet.style.transform='translateY('+v+'px)'};
+ const start=c=>{y0=c;y=0;drag=true;sheet.classList.add('drag')};
+ const move=c=>{if(!drag)return;y=Math.max(0,c-y0);setY(y)};
+ const end=()=>{if(!drag)return;drag=false;sheet.classList.remove('drag');sheet.style.transform='';
+  if(y>90){onClose()}else{sheet.style.transform='';}};
+ zone.addEventListener('touchstart',e=>start(e.touches[0].clientY),{passive:true});
+ zone.addEventListener('touchmove',e=>move(e.touches[0].clientY),{passive:true});
+ zone.addEventListener('touchend',end);
+ zone.addEventListener('mousedown',e=>{start(e.clientY);
+  const mm=ev=>move(ev.clientY),mu=()=>{end();removeEventListener('mousemove',mm);removeEventListener('mouseup',mu)};
+  addEventListener('mousemove',mm);addEventListener('mouseup',mu)});
+ // 遮罩：点击关闭 + 向下滑动关闭
+ let my0=0,mdrag=false;
+ mask.addEventListener('touchstart',e=>{my0=e.touches[0].clientY;mdrag=true;sheet.classList.add('drag')},{passive:true});
+ mask.addEventListener('touchmove',e=>{if(!mdrag)return;const dy=Math.max(0,e.touches[0].clientY-my0);sheet.style.transform='translateY('+dy+'px)'},{passive:true});
+ mask.addEventListener('touchend',e=>{if(!mdrag)return;mdrag=false;sheet.classList.remove('drag');const dy=Math.max(0,e.changedTouches[0].clientY-my0);sheet.style.transform='';if(dy>10)onClose()});
+}
+dragClose($('osheet'),$('omask'),$('ogz'),closePicker);
+dragClose($('sheet'),$('mask'),$('sgz'),closeSheet);
+$('olist').addEventListener('click',e=>{
+ const o=e.target.closest('.opt');if(!o)return;
+ ripple(e,o);buzz(10);
+ $('olist').querySelectorAll('.opt').forEach(x=>x.classList.toggle('sel',x===o));
+ oVal=o.dataset.v;
+ setTimeout(()=>{closePicker();
+  if(oKind==='q')applyQ(oVal);
+  else applyA(oVal);
+ },190);
+});
+let lockY=0;
+function lockBody(){lockY=scrollY;document.body.style.top=(-lockY)+'px';document.body.classList.add('lock')}
+function unlockBody(){document.body.classList.remove('lock');document.body.style.top='';scrollTo(0,lockY)}
+function closePicker(){$('omask').classList.remove('show');$('osheet').classList.remove('show');unlockBody()}
+$('omask').onclick=closePicker;
+$('pkQ').onclick=e=>{ripple(e);openPicker('q')};
+$('pkA').onclick=e=>{ripple(e);openPicker('a')};
+paintQ();paintA();
+$('hsub').textContent='副武器 · '+DATA.length+' 种型号 · '+TOTAL+' 条皮肤';
+function buzz(ms){try{navigator.vibrate&&navigator.vibrate(ms)}catch(e){}}
+function toast(t){const e=$('toast');e.textContent=t;e.classList.add('show');clearTimeout(e._t);e._t=setTimeout(()=>e.classList.remove('show'),1400)}
+function ripple(e,el){const b=el||e.currentTarget||e.target.closest('button,.sk,.mhead'),r=document.createElement('span'),d=Math.max(b.offsetWidth,b.offsetHeight);r.className='rip';r.style.width=r.style.height=d+'px';const rc=b.getBoundingClientRect();r.style.left=((e.clientX||rc.left+rc.width/2)-rc.left-d/2)+'px';r.style.top=((e.clientY||rc.top+rc.height/2)-rc.top-d/2)+'px';b.style.position=b.style.position||'relative';b.appendChild(r);setTimeout(()=>r.remove(),560)}
+function match(){
+ const k=st.kw.toLowerCase();let rows=[];
+ DATA.forEach(d=>d.items.forEach(i=>{
+  if(st.q&&i.q!==st.q)return;
+  if(st.a&&!i.a.some(a=>a[0]===st.a))return;
+  if(k){const hay=(d.m+' '+i.n+' '+i.q+' '+i.s.join(' ')+' '+i.a.map(a=>a[0]).join(' ')).toLowerCase();if(!hay.includes(k))return}
+  rows.push([d.m,i]);
+ }));
+ return rows;
+}
+function skin(m,i,z,delay){
+ const god=i.q==='神兵';
+ const ser=i.s.length?`<span class="stag">🏷 ${i.s[0]}</span>`:'';
+ return `<div class="sk${god?' god':''}" data-m="${m}" data-n="${i.n}" style="animation-delay:${delay}ms;--c:${QC[i.q]}">
+ <b><span class="qd" style="background:${QC[i.q]}"></span>${i.n}</b><i>${i.q}</i>${ser}</div>`;
+}
+function home(){
+ const k=st.kw.toLowerCase();
+ let h='';
+ DATA.forEach((d,di)=>{
+  let items=d.items;
+  if(st.q||st.a||k)items=items.filter(i=>{
+   if(st.q&&i.q!==st.q)return false;
+   if(st.a&&!i.a.some(a=>a[0]===st.a))return false;
+   if(k){const hay=(d.m+' '+i.n+' '+i.q+' '+i.s.join(' ')+' '+i.a.map(a=>a[0]).join(' ')).toLowerCase();if(!hay.includes(k))return false}
+   return true;});
+  if(!items.length)return;
+  const c={};items.forEach(i=>c[i.q]=(c[i.q]||0)+1);
+  const bar=QO.filter(q=>c[q]).map(q=>`<i style="flex-grow:${c[q]};background:${QC[q]}"></i>`).join('');
+  const open=allOpen||(st.q||st.a||k)?' open':'';
+  h+=`<div class="mcard${open}" data-m="${d.m}" style="animation-delay:${di*35}ms">
+  <div class="mhead"><span class="midx">${di+1}</span>
+  <span class="mmid"><b>${d.m}</b><span class="qbar">${bar}</span></span>
+  <span class="mnum"><b>${items.length}</b><i>款</i></span><span class="arw">›</span></div>
+  <div class="mbody"><div class="mbin">${items.map((i,z)=>skin(d.m,i,z,z*22)).join('')}</div></div></div>`;
+ });
+ return h||'<div class="empty">没有匹配的皮肤<br>换个关键词，或点「重置」</div>';
+}
+function render(){
+ const rows=match();
+ const filtering=!!(st.kw||st.q||st.a);
+ tgl.style.display=filtering?'none':'block';
+ if(!filtering){
+  left.innerHTML='共 <b>'+DATA.length+'</b> 种型号 · <b class="bump">'+TOTAL+'</b> 条皮肤';
+  tgl.textContent=allOpen?'收起全部':'展开全部';
+  box.innerHTML=home();
+ }else{
+  left.innerHTML='筛选结果 <b class="bump">'+rows.length+'</b> 条';
+  if(!rows.length){box.innerHTML='<div class="empty">没有匹配的皮肤<br>换个关键词，或点「重置」</div>';return}
+  const slice=rows.slice(0,shown);
+  let h='<div class="res">';
+  slice.forEach(([m,i],idx)=>{
+   const god=i.q==='神兵';
+   const ser=i.s.map(s=>`<span class="stag">🏷 ${s}</span>`).join('');
+   const at=i.a.length?i.a.map((a,z)=>`<span class="at${a[1]==='#ff4d4f'?' god':''}" style="color:${a[1]};border-color:${a[1]};animation-delay:${z*40}ms">${a[0]}</span>`).join(''):'<span class="none">无属性加成</span>';
+   h+=`<div class="item"><div class="ihead"><span class="qd" style="background:${QC[i.q]};width:9px;height:9px;border-radius:50%;flex:0 0 auto"></span>
+   <span class="iname"><b>${m} - ${i.n}</b><i>${i.q}</i>${ser}</span><span class="arw">›</span></div>
+   <div class="ibody"><div class="ibin"><div class="sec">属性加成</div><div class="attrs">${at}</div></div></div></div>`;
+  });
+  if(rows.length>shown)h+=`<button class="more">展开更多 ${rows.length-shown} 条 ↓</button>`;
+  h+='</div>';box.innerHTML=h;
+ }
+}
+function findItem(m,n){for(const d of DATA)if(d.m===m){const it=d.items.find(x=>x.n===n);if(it)return[d.m,it]}return null}
+function openSheet(m,n){
+ const r=findItem(m,n);if(!r)return;
+ const [mm,i]=r;const god=i.q==='神兵';
+ const at=i.a.length?i.a.map((a,z)=>`<span class="at${a[1]==='#ff4d4f'?' god':''}" style="color:${a[1]};border-color:${a[1]};animation-delay:${z*45}ms">${a[0]}</span>`).join(''):'<span class="none">无属性加成</span>';
+ const ser=i.s.length?'<span class="stag">🏷 '+i.s.join(' / ')+'</span>':'';
+ $('sh').innerHTML=`<h3>${mm} - ${i.n}</h3><div class="sub"><span class="qpill" style="background:${QC[i.q]}">${i.q}</span>${ser}</div>
+ <div class="sec">属性加成</div><div class="attrs">${at}</div>
+ <button class="copy" id="cp">复制属性</button>`;
+ $('cp').onclick=function(){
+  const txt=mm+' - '+i.n+'（'+i.q+'）\n'+(i.a.length?i.a.map(a=>'· '+a[0]).join('\n'):'无属性加成');
+  const done=()=>{this.textContent='✓ 已复制';this.classList.add('ok');buzz(12);setTimeout(()=>{this.textContent='复制属性';this.classList.remove('ok')},1500)};
+  if(navigator.clipboard&&navigator.clipboard.writeText)navigator.clipboard.writeText(txt).then(done,()=>{toast('长按可复制');done()});else{toast('长按可复制');done()}
+ };
+ lockBody();$('mask').classList.add('show');$('sheet').classList.add('show');buzz(10);
+}
+function closeSheet(){$('mask').classList.remove('show');$('sheet').classList.remove('show');unlockBody()}
+$('mask').onclick=closeSheet;
+box.addEventListener('click',e=>{
+ const sk=e.target.closest('.sk');
+ if(sk){ripple(e);setTimeout(()=>openSheet(sk.dataset.m,sk.dataset.n),110);return}
+ const mh=e.target.closest('.mhead');
+ if(mh){const c=mh.parentElement;c.classList.toggle('open');buzz(10);return}
+ const more=e.target.closest('.more');
+ if(more){shown+=20;buzz(8);render();return}
+ const head=e.target.closest('.ihead');
+ if(head){const it=head.parentElement;box.querySelectorAll('.item.open').forEach(o=>{if(o!==it)o.classList.remove('open')});it.classList.toggle('open');buzz(10)}
+});
+tgl.onclick=e=>{ripple(e);allOpen=!allOpen;buzz(10);toast(allOpen?'已展开全部型号':'已收起全部型号');render()};
+kw.onfocus=()=>sw.classList.add('on');
+kw.onblur=()=>{if(!kw.value)sw.classList.remove('on')};
+kw.oninput=e=>{st.kw=e.target.value.trim();sw.classList.toggle('on',!!e.target.value);$('clrx').style.display=e.target.value?'block':'none';shown=20;render()};
+kw.onkeydown=e=>{if(e.key==='Enter'){kw.blur();buzz(8)}};
+$('clrx').onclick=()=>{kw.value='';st.kw='';sw.classList.remove('on');$('clrx').style.display='none';shown=20;render();buzz(8)};
+$('rst').onclick=e=>{ripple(e);st={kw:'',q:'',a:''};kw.value='';sw.classList.remove('on');$('clrx').style.display='none';allOpen=false;paintQ();paintA();document.documentElement.style.setProperty('--brand','#4a6cf7');document.documentElement.style.setProperty('--brand2','#7b5cf0');document.querySelector('meta[name=theme-color]').content='#4a6cf7';shown=20;render();buzz(12);toast('已重置')};
+render();
+</script>
+</body></html>
