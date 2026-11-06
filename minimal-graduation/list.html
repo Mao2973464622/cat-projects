@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>商品列表 - 𝓒𝓲𝓪𝓵𝓵𝓸～(∠・ω< )⌒☆ 猫猫の前端毕设</title>
+  <link rel="stylesheet" href="/Minimal/common.css">
+  <link rel="stylesheet" href="/Minimal/goods_card.css">
+</head>
+<body>
+  <!-- 导航栏 -->
+  <nav class="navbar">
+    <div class="nav-container">
+      <h1 class="logo">𝓒𝓲𝓪𝓵𝓵𝓸～(∠・ω< )⌒☆ 猫猫の前端毕设</h1>
+      <div class="nav-links">
+        <a href="index.html">首页</a>
+        <a href="list.html">商品列表</a>
+        <a href="add.html">新增商品</a>
+        <a href="developer.html">开发者说明</a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- 列表筛选 + 功能区 -->
+  <div class="container filter-bar">
+    <div class="filter-group">
+      <label>分类筛选：</label>
+      <select id="categoryFilter">
+        <option value="all">全部</option>
+        <option value="数码类">数码类</option>
+        <option value="服饰类">服饰类</option>
+        <option value="日用类">日用类</option>
+        <option value="零食类">零食类</option>
+      </select>
+      <a href="add.html" class="btn">新增商品</a>
+    </div>
+  </div>
+
+  <!-- 商品列表 -->
+  <div class="container">
+    <h3 class="title">📦 全部商品（共12个）</h3>
+    <div class="goods-list" id="goodsList">
+      <!-- 商品由JS渲染 -->
+    </div>
+  </div>
+
+  <!-- 底部 -->
+  <footer>
+    <p>𝓒𝓲𝓪𝓵𝓵𝓸～(∠・ω< )⌒☆ 猫猫の前端毕设 © 2026 | 湖南九嶷职业技术学院 毕设作品 | 前端展示</p>
+  </footer>
+
+  <script src="/Minimal/common.js"></script>
+  <script src="/Minimal/crud.js"></script>
+  <script>
+    // 分类筛选功能
+    document.getElementById('categoryFilter').addEventListener('change', function() {
+      let category = this.value;
+      fetch('/Minimal/./goods.json')
+        .then(res => res.json())
+        .then(data => {
+          let filterData = category === 'all' ? data : data.filter(item => item.category === category);
+          renderGoodsList(filterData);
+        });
+    });
+  </script>
+</body>
+</html>
